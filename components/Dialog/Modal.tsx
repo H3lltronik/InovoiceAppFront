@@ -3,10 +3,11 @@ import { FC, Fragment, useState } from "react";
 
 type ModalProps = {
   activator: React.ReactNode,
-  title?: React.ReactNode
+  title?: React.ReactNode,
+  containerClass?: string,
 }
 export const Modal : FC<ModalProps> = (props) => {
-  let [isOpen, setIsOpen] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -53,7 +54,7 @@ export const Modal : FC<ModalProps> = (props) => {
               leave="ease-in duration-200"
               leaveFrom="opacity-100"
               leaveTo="opacity-0">
-              <div>
+              <div className={`${props.containerClass}`}>
                 {
                   props.title?
                   <Dialog.Title>

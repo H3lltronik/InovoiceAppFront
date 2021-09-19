@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     extend: {
       width: {
+        'msg-modal': '480px'
       },
       screens: {
         xs: '420px',

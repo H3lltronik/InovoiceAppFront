@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
 import { NewInvoice } from "../../components/Dialog";
+import { Delete } from "../../components/Dialog/Delete";
 import { Button } from "../../components/Form/Button";
 import {
   BadgeStatus,
@@ -31,11 +32,7 @@ const Details: NextPage = () => {
         <div className="flex-grow"></div>
         <div className="flex gap-2">
           <NewInvoice></NewInvoice>
-          <Button
-            className="bg-red-500 text-white hover:bg-purple-light active:bg-purple-dark"
-            onClick={() => {}}>
-            <span>Delete</span>
-          </Button>
+          <Delete></Delete>
           <Button
             className="bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark"
             onClick={() => {}}>
