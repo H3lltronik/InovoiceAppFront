@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Input } from '../Form/Input'
 import { Select } from '../Form/Select'
 import { Backdrop } from './Backdrop'
 
 export const NewInvoice = () => {
+    const [animClass, setFadeClass] = useState("");
+
+    const doClose = () => {
+        setFadeClass('animate-slideOutLeft');
+    }
+
     return (
-        <Backdrop>
-            <section className={`absolute h-screen bg-black-light left-0 transform
+        <Backdrop doClose={doClose}>
+            <section className={`${animClass} absolute h-screen bg-black-light left-0 transform z-10
             w-full sm:w-3/4 lg:w-1/2 lg:max-w-screen-md pl-40 pt-10 pr-10 text-white`}>
                 <h2 className="text-white font-bold text-2xl">New Invoice</h2>
 
