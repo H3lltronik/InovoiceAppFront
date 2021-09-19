@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
+import { NewInvoice } from "../../components/Dialog";
 import { Button } from "../../components/Form/Button";
 import {
   BadgeStatus,
@@ -9,7 +10,6 @@ import {
 import { AppLayout } from "../../components/Layout/AppLayout";
 
 const Details: NextPage = () => {
-  //
   return (
     <AppLayout>
       <Link href="/" passHref={true}>
@@ -30,11 +30,7 @@ const Details: NextPage = () => {
 
         <div className="flex-grow"></div>
         <div className="flex gap-2">
-          <Button
-            className="bg-blue-dark text-white hover:bg-purple-light active:bg-purple-dark"
-            onClick={() => {}}>
-            <span>Edit</span>
-          </Button>
+          <NewInvoice></NewInvoice>
           <Button
             className="bg-red-500 text-white hover:bg-purple-light active:bg-purple-dark"
             onClick={() => {}}>

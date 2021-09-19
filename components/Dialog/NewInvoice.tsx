@@ -1,84 +1,170 @@
-import React, { useState } from 'react'
-import { Input } from '../Form/Input'
-import { Select } from '../Form/Select'
-import { Backdrop } from './Backdrop'
+import React, { useState } from "react";
+import { Button } from "../Form/Button";
+import { Input } from "../Form/Input";
+import { Select } from "../Form/Select";
+import { Backdrop } from "./Backdrop";
+import { Modal } from "./Modal";
 
 export const NewInvoice = () => {
-    const [animClass, setFadeClass] = useState("");
+  const [animClass, setFadeClass] = useState("");
 
-    const doClose = () => {
-        setFadeClass('animate-slideOutLeft');
-    }
+  const doClose = () => {
+    setFadeClass("animate-slideOutLeft");
+  };
 
+  const getActivator = () => {
     return (
-        <Backdrop doClose={doClose}>
-            <section className={`${animClass} absolute h-screen bg-black-light left-0 transform z-10
+      <Button
+        className="bg-blue-dark text-white hover:bg-purple-light active:bg-purple-dark"
+        onClick={() => {}}>
+        <span>Edit</span>
+      </Button>
+    );
+  };
+
+  return (
+    <Modal activator={getActivator()}>
+      <section
+        className={`${animClass} absolute h-screen bg-black-light left-0 transform z-10
             w-full sm:w-3/4 lg:w-1/2 lg:max-w-screen-md pl-40 pt-10 pr-10 text-white`}>
-                <h2 className="text-white font-bold text-2xl">New Invoice</h2>
+        <h2 className="text-white font-bold text-2xl">New Invoice</h2>
 
-                <div className="mt-10">
-                    <div className="text-sm text-purple-light font-bold">Bill from</div>
+        <div className="mt-10">
+          <div className="text-sm text-purple-light font-bold">Bill from</div>
 
-                    <div className={`mt-5`}>
-                        <div className={`text-xs mb-2`}>Street Address</div>
-                        <Input></Input>
-                    </div>
-                    <div className="flex gap-5">
-                        <div className={`mt-5`}>
-                            <div className={`text-xs mb-2`}>City</div>
-                            <Input></Input>
-                        </div>
-                        <div className={`mt-5`}>
-                            <div className={`text-xs mb-2`}>Post Code</div>
-                            <Input></Input>
-                        </div>
-                        <div className={`mt-5`}>
-                            <div className={`text-xs mb-2`}>Country</div>
-                            <Input></Input>
-                        </div>
-                    </div>
+          <div className={`mt-5`}>
+            <div className={`text-xs mb-2`}>Street Address</div>
+            <Input></Input>
+          </div>
+          <div className="flex gap-5">
+            <div className={`mt-5`}>
+              <div className={`text-xs mb-2`}>City</div>
+              <Input></Input>
+            </div>
+            <div className={`mt-5`}>
+              <div className={`text-xs mb-2`}>Post Code</div>
+              <Input></Input>
+            </div>
+            <div className={`mt-5`}>
+              <div className={`text-xs mb-2`}>Country</div>
+              <Input></Input>
+            </div>
+          </div>
 
-                    <div className="text-sm text-purple-light font-bold mt-10">Bill to</div>
+          <div className="text-sm text-purple-light font-bold mt-10">
+            Bill to
+          </div>
 
-                    <div className={`mt-5`}>
-                        <div className={`text-xs mb-2`}>Client’s Name</div>
-                        <Input></Input>
-                    </div>
+          <div className={`mt-5`}>
+            <div className={`text-xs mb-2`}>Client’s Name</div>
+            <Input></Input>
+          </div>
 
-                    <div className={`mt-5`}>
-                        <div className={`text-xs mb-2`}>Client’s Email</div>
-                        <Input></Input>
-                    </div>
+          <div className={`mt-5`}>
+            <div className={`text-xs mb-2`}>Client’s Email</div>
+            <Input></Input>
+          </div>
 
-                    <div className="flex gap-5">
-                        <div className={`mt-5`}>
-                            <div className={`text-xs mb-2`}>City</div>
-                            <Input></Input>
-                        </div>
-                        <div className={`mt-5`}>
-                            <div className={`text-xs mb-2`}>Post Code</div>
-                            <Input></Input>
-                        </div>
-                        <div className={`mt-5`}>
-                            <div className={`text-xs mb-2`}>Country</div>
-                            <Input></Input>
-                        </div>
-                    </div>
+          <div className="flex gap-5">
+            <div className={`mt-5`}>
+              <div className={`text-xs mb-2`}>City</div>
+              <Input></Input>
+            </div>
+            <div className={`mt-5`}>
+              <div className={`text-xs mb-2`}>Post Code</div>
+              <Input></Input>
+            </div>
+            <div className={`mt-5`}>
+              <div className={`text-xs mb-2`}>Country</div>
+              <Input></Input>
+            </div>
+          </div>
 
-                    <div className="flex gap-5">
-                        <div className={`mt-5 w-1/2`}>
-                            <div className={`text-xs mb-2`}>City</div>
-                            <Input></Input>
-                        </div>
-                        <div className={`mt-5 w-1/2`}>
-                            <div className={`text-xs mb-2`}>Payment Terms</div>
-                            <Select label="test" items={[{text: 'test', value: 'val'}, {text: 'test2', value: 'val3'}]}></Select>
-                        </div>
-                    </div>
+          <div className="flex gap-5">
+            <div className={`mt-5 w-1/2`}>
+              <div className={`text-xs mb-2`}>City</div>
+              <Input></Input>
+            </div>
+            <div className={`mt-5 w-1/2`}>
+              <div className={`text-xs mb-2`}>Payment Terms</div>
+              <Select
+                label="test"
+                items={[
+                  { text: "test", value: "val" },
+                  { text: "test2", value: "val3" },
+                ]}></Select>
+            </div>
+          </div>
+        </div>
+      </section>
+    </Modal>
+    // <Backdrop doClose={doClose}>
+    //     <section className={`${animClass} absolute h-screen bg-black-light left-0 transform z-10
+    //     w-full sm:w-3/4 lg:w-1/2 lg:max-w-screen-md pl-40 pt-10 pr-10 text-white`}>
+    //         <h2 className="text-white font-bold text-2xl">New Invoice</h2>
 
+    //         <div className="mt-10">
+    //             <div className="text-sm text-purple-light font-bold">Bill from</div>
 
-                </div>
-            </section>
-        </Backdrop>
-    )
-}
+    //             <div className={`mt-5`}>
+    //                 <div className={`text-xs mb-2`}>Street Address</div>
+    //                 <Input></Input>
+    //             </div>
+    //             <div className="flex gap-5">
+    //                 <div className={`mt-5`}>
+    //                     <div className={`text-xs mb-2`}>City</div>
+    //                     <Input></Input>
+    //                 </div>
+    //                 <div className={`mt-5`}>
+    //                     <div className={`text-xs mb-2`}>Post Code</div>
+    //                     <Input></Input>
+    //                 </div>
+    //                 <div className={`mt-5`}>
+    //                     <div className={`text-xs mb-2`}>Country</div>
+    //                     <Input></Input>
+    //                 </div>
+    //             </div>
+
+    //             <div className="text-sm text-purple-light font-bold mt-10">Bill to</div>
+
+    //             <div className={`mt-5`}>
+    //                 <div className={`text-xs mb-2`}>Client’s Name</div>
+    //                 <Input></Input>
+    //             </div>
+
+    //             <div className={`mt-5`}>
+    //                 <div className={`text-xs mb-2`}>Client’s Email</div>
+    //                 <Input></Input>
+    //             </div>
+
+    //             <div className="flex gap-5">
+    //                 <div className={`mt-5`}>
+    //                     <div className={`text-xs mb-2`}>City</div>
+    //                     <Input></Input>
+    //                 </div>
+    //                 <div className={`mt-5`}>
+    //                     <div className={`text-xs mb-2`}>Post Code</div>
+    //                     <Input></Input>
+    //                 </div>
+    //                 <div className={`mt-5`}>
+    //                     <div className={`text-xs mb-2`}>Country</div>
+    //                     <Input></Input>
+    //                 </div>
+    //             </div>
+
+    //             <div className="flex gap-5">
+    //                 <div className={`mt-5 w-1/2`}>
+    //                     <div className={`text-xs mb-2`}>City</div>
+    //                     <Input></Input>
+    //                 </div>
+    //                 <div className={`mt-5 w-1/2`}>
+    //                     <div className={`text-xs mb-2`}>Payment Terms</div>
+    //                     <Select label="test" items={[{text: 'test', value: 'val'}, {text: 'test2', value: 'val3'}]}></Select>
+    //                 </div>
+    //             </div>
+
+    //         </div>
+    //     </section>
+    // </Backdrop>
+  );
+};

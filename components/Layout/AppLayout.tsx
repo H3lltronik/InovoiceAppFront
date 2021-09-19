@@ -6,7 +6,6 @@ export const AppLayout: FC<AppLayout> = (props) => {
     return (
         <div className="relative">
             <AppBar></AppBar>
-            {/* <NewInvoice></NewInvoice> */}
             <main className="container mx-auto pt-12">
                 {props.children}
             </main>
