@@ -1,0 +1,26 @@
+.badge-paid {
+    @apply bg-opacity-10 bg-green-400 text-green-400 ;
+}
+
+.badge-draft {
+    @apply bg-opacity-10 bg-white-dark text-white-dark ;
+}
+
+.badge-pending {
+    @apply bg-opacity-10 bg-yellow-600 text-yellow-600 ;
+}
+
+.tippy-select-box {
+    background-color: transparent !important;
+}
+
+.tippy-root {
+    z-index: 1;
+}
+.tippy-root .tippy-content {
+    padding-left: 0;
+    padding-right: 0;
+}
+.tippy-root [data-tippy-root]{
+    width: 100%;
+}

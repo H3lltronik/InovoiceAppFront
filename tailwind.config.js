@@ -1,0 +1,73 @@
+module.exports = {
+  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class', // or 'media' or 'class'
+  mode: 'jit',
+  theme: {
+    extend: {
+      minHeight: {
+        0: '0px',
+        1: '0.25rem',
+        4: '1rem',
+        5: '1.25rem',
+        6: '1.5rem',
+        7: '1.75rem',
+        8: '2rem',
+        9: '2.25rem',
+        10: '2.5rem',
+        11: '2.75rem',
+        12: '3rem',
+        14: '3.5rem',
+        16: '4rem',
+        20: '5rem',
+        24: '6rem',
+        28: '7rem',
+        32: '8rem',
+        36: '9rem',
+        40: '10rem',
+        44: '11rem',
+        48: '12rem',
+        52: '13rem',
+        56: '14rem',
+        60: '15rem',
+        64: '16rem',
+        72: '18rem',
+        80: '20rem',
+        96: '24rem',
+      },
+      screens: {
+        xs: '420px',
+      },
+      colors: {
+        'outlines': '#252945',
+        'purple-dark': '#7C5DFA',
+        'purple-light': '#9277FF',
+        'black-light': '#141625',
+        'black-dark': '#0C0E16',
+        'blue-dark': '#252945',
+        'blue-darker': '#1E2139',
+        'white-dark': '#DFE3FA',
+        'white-light': '#F8F8FB',
+        'gray-light': '#888EB0',
+        'gray-dark': '#7E88C3',
+        'red-dark': '#EC5757',
+        'red-light': '#FF9797',
+      },
+      fontFamily: {
+        'primary': "Spartan, sans-serif",
+      },
+      container: {
+        screens: {
+          sm: "100%",
+          md: "100%",
+          lg: "730px",
+          xl: "730px",
+          '2xl': '730px',
+        }
+      },
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
