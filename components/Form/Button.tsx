@@ -1,16 +1,17 @@
 import React, { FC } from 'react'
 
 type ButtonProps = {
-    text: string,
     appendIcon?: 'plus',
+    className?: string,
     onClick: () => void,
 }
 
 export const Button: FC<ButtonProps> = (props) => {
     return (
-        <button className={`bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark
-        font-bold rounded-full pl-2 h-14 
-        ${props.appendIcon? 'pr-5':'pr-2'}`}
+        <button className={`font-bold rounded-full h-12 flex items-center text-sm
+            ${props.className}
+            ${props.appendIcon? 'pl-2 pr-5':'px-7'}`
+        }
         onClick={props.onClick}
         >
             <div className="flex items-center justify-center">
@@ -23,7 +24,7 @@ export const Button: FC<ButtonProps> = (props) => {
                     </div>
                     :null
                 }
-                <div className="text-regular">{props.text}</div>
+                <div className="text-regular">{props.children}</div>
             </div>
         </button>
     )

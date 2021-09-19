@@ -4,11 +4,12 @@ module.exports = {
   mode: 'jit',
   theme: {
     extend: {
+      width: {
+      },
       screens: {
         xs: '420px',
       },
       colors: {
-        'outlines': '#252945',
         'purple-dark': '#7C5DFA',
         'purple-light': '#9277FF',
         'black-light': '#141625',
