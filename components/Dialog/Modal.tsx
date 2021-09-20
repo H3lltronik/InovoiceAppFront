@@ -1,12 +1,13 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useState, forwardRef, useImperativeHandle } from "react";
 
 type ModalProps = {
-  activator: React.ReactNode,
-  title?: React.ReactNode,
-  containerClass?: string,
-}
-export const Modal : FC<ModalProps> = (props) => {
+  activator: React.ReactNode;
+  children?: React.ReactNode;
+  title?: React.ReactNode;
+  containerClass?: string;
+};
+const ModalComponent = (props: any, ref: any) => {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -17,11 +18,13 @@ export const Modal : FC<ModalProps> = (props) => {
     setIsOpen(true);
   }
 
+  useImperativeHandle(ref, () => ({
+    closeModal
+  }));
+
   return (
     <>
-      <div onClick={openModal}>
-        {props.activator}
-      </div>
+      <div onClick={openModal}>{props.activator}</div>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
@@ -55,16 +58,11 @@ export const Modal : FC<ModalProps> = (props) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0">
               <div className={`${props.containerClass}`}>
-                {
-                  props.title?
-                  <Dialog.Title>
-                    {props.title}
-                  </Dialog.Title>
-                  :null
-                }
-                
-                {props.children}
+                {props.title ? (
+                  <Dialog.Title>{props.title}</Dialog.Title>
+                ) : null}
 
+                {props.children}
               </div>
             </Transition.Child>
           </div>
@@ -72,4 +70,9 @@ export const Modal : FC<ModalProps> = (props) => {
       </Transition>
     </>
   );
+};
+
+export type ModalElement = {
+  closeModal: () => any
 }
+export const Modal = forwardRef<ModalElement, ModalProps>(ModalComponent);
