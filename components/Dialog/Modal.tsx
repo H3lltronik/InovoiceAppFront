@@ -19,7 +19,7 @@ const ModalComponent = (props: any, ref: any) => {
   }
 
   useImperativeHandle(ref, () => ({
-    closeModal
+    closeModal,
   }));
 
   return (

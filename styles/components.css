@@ -26,9 +26,13 @@
 }
 
 .layout {
-  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc(var(--app-height, 1vh) - theme("height.20"));
+  height: 100vh;
   overflow-y: auto;
 }
-@media (min-width: theme("screens.xl")) {
+@media (max-width: theme("screens.lg")) {
+  .layout {
+    height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+    height: calc(var(--app-height, 1vh) - theme("height.20"));
+    overflow-y: auto;
+  }
 }

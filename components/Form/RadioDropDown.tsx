@@ -1,10 +1,61 @@
-import React, { FC } from 'react'
+import { Popover, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import { Checkbox } from "./Checkbox";
 
-type RadioDropDownProps = {}
-export const RadioDropDown: FC<RadioDropDownProps > = (props) => {
+const solutions = [
+    {
+        name: "Draft",
+        value: "1",
+    },
+    {
+        name: "Pending",
+        value: "2",
+    },
+    {
+        name: "Paid",
+        value: "3",
+    },
+];
+
+export const RadioDropDown = () => {
     return (
-        <div>
-            
+        <div className="mr-5">
+            <Popover className="relative">
+                {({ open }) => (
+                    <>
+                        <Popover.Button
+                            className={`
+                                ${open ? "" : "text-opacity-90"}
+                                text-white group bg-orange-700 px-3 py-2 rounded-md inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none 
+                                focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}>
+                            <span className="text-sm">Filter by status</span>
+                            <div className="ml-7">
+                                <img src="/icon-arrow-down.svg" alt="" />
+                            </div>
+                        </Popover.Button>
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-200"
+                            enterFrom="opacity-0 translate-y-1"
+                            enterTo="opacity-100 translate-y-0"
+                            leave="transition ease-in duration-150"
+                            leaveFrom="opacity-100 translate-y-0"
+                            leaveTo="opacity-0 translate-y-1">
+                            <Popover.Panel className="absolute z-10 w-full">
+                                <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                                    <div className="relative flex flex-col gap-3 bg-blue-dark p-6">
+                                        {solutions.map((item) => (
+                                            <div key={item.name}>
+                                                <Checkbox label={item.name} value={item.value}></Checkbox>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </Popover.Panel>
+                        </Transition>
+                    </>
+                )}
+            </Popover>
         </div>
-    )
-}
+    );
+};

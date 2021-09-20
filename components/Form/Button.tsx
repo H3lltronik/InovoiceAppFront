@@ -18,7 +18,7 @@ export const Button: FC<ButtonProps> = (props) => {
                 {
                     props.appendIcon?
                     <div className="bg-white rounded-full flex mr-4">
-                        <div className="m-auto p-3">
+                        <div className="m-auto p-2">
                             <img className="w-5 h-5" src="/icon-plus.svg" alt="" />
                         </div>
                     </div>

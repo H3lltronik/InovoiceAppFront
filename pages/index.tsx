@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import AppBar from "../components/AppBar/AppBar";
 import { NewInvoice } from "../components/Dialog";
 import { Button } from "../components/Form/Button";
+import { RadioDropDown } from "../components/Form/RadioDropDown";
 import InvoiceItemList from "../components/Invoice/InvoiceItemList";
 import { AppLayout } from "../components/Layout/AppLayout";
 
@@ -24,7 +25,7 @@ const Home: NextPage = () => {
         <div className="flex-grow"></div>
 
         <div className="flex items-center">
-          {/* <MyModal></MyModal> */}
+        <RadioDropDown></RadioDropDown>
           <Button className="bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark"
           appendIcon="plus" onClick={() => {}}>
             <div className="">
@@ -36,7 +37,7 @@ const Home: NextPage = () => {
       </div>
 
       <section className="flex flex-col gap-5 mt-14">
-        {[1, 1, 1, 1, 1, 1, 1].map((_, i) => {
+        {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => {
           return <InvoiceItemList key={i} />;
         })}
       </section>
