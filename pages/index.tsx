@@ -10,9 +10,14 @@ const Home: NextPage = () => {
     <AppLayout>
       <div className="flex">
         <div className="">
-          <h1 className="text-3xl font-bold text-white">Invoices</h1>
+          <h1 className="text-lg md:text-3xl font-bold text-white">Invoices</h1>
           <p className="font-normal text-xs text-white-dark mt-1">
-            There are 7 total invoices
+            <span className="hidden md:inline">There are </span>
+            <span className="">
+              <span>7</span>
+              <span className="hidden md:inline"> total</span>
+              <span> invoices</span>
+            </span>
           </p>
         </div>
 
@@ -22,7 +27,10 @@ const Home: NextPage = () => {
           {/* <MyModal></MyModal> */}
           <Button className="bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark"
           appendIcon="plus" onClick={() => {}}>
-            <span>New Invoice</span>
+            <div className="">
+              <span className="">New</span>
+              <span className="hidden md:inline"> Invoice</span>
+            </div>
           </Button>
         </div>
       </div>
