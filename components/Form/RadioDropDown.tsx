@@ -1,5 +1,5 @@
 import { Popover, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { FC, Fragment } from "react";
 import { Checkbox } from "./Checkbox";
 
 const solutions = [
@@ -17,9 +17,12 @@ const solutions = [
     },
 ];
 
-export const RadioDropDown = () => {
+type RadioDropDownProps = {
+    className?: string;
+}
+export const RadioDropDown : FC<RadioDropDownProps> = (props) => {
     return (
-        <div className="mr-5">
+        <div className={`mr-5 ${props.className}`}>
             <Popover className="relative">
                 {({ open }) => (
                     <>
@@ -28,7 +31,10 @@ export const RadioDropDown = () => {
                                 ${open ? "" : "text-opacity-90"}
                                 text-white group bg-orange-700 px-3 py-2 rounded-md inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none 
                                 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}>
-                            <span className="text-sm">Filter by status</span>
+                            <span className="text-sm">
+                                <span className="">Filter </span>
+                                <span className="inline xs:hidden md:inline">by status</span>
+                            </span>
                             <div className="ml-7">
                                 <img src="/icon-arrow-down.svg" alt="" />
                             </div>
@@ -41,7 +47,7 @@ export const RadioDropDown = () => {
                             leave="transition ease-in duration-150"
                             leaveFrom="opacity-100 translate-y-0"
                             leaveTo="opacity-0 translate-y-1">
-                            <Popover.Panel className="absolute z-10 w-full">
+                            <Popover.Panel className="absolute z-10 w-full min-w-[150px]">
                                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                     <div className="relative flex flex-col gap-3 bg-blue-dark p-6">
                                         {solutions.map((item) => (
