@@ -33,7 +33,7 @@ export const RadioDropDown : FC<RadioDropDownProps> = (props) => {
                                 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}>
                             <span className="text-sm">
                                 <span className="">Filter </span>
-                                <span className="inline xs:hidden md:inline">by status</span>
+                                <span className="hidden md:inline">by status</span>
                             </span>
                             <div className="ml-7">
                                 <img src="/icon-arrow-down.svg" alt="" />
