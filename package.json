@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.4.1",
     "@hookform/resolvers": "^2.8.1",
+    "@jsier/retrier": "^1.2.4",
     "@tippyjs/react": "^4.2.5",
     "axios": "^0.21.4",
     "dayjs": "^1.10.7",
