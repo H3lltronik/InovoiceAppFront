@@ -5,8 +5,12 @@ import { Button } from "../components/Form/Button";
 import { RadioDropDown } from "../components/Form/RadioDropDown";
 import InvoiceItemList from "../components/Invoice/InvoiceItemList";
 import { AppLayout } from "../components/Layout/AppLayout";
+import {useStore} from '../store'
 
 const Home: NextPage = () => {
+    const addInvoice = useStore(state => state.addInvoice);
+    const invoices = useStore(state => state.invoices);
+
     return (
         <AppLayout>
             <div className="flex">
@@ -44,11 +48,8 @@ const Home: NextPage = () => {
             </div>
 
             <section className="flex flex-col gap-5 mt-5 md:mt-14">
-                {[
-                    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                    1,
-                ].map((_, i) => {
-                    return <InvoiceItemList key={i} />;
+                {invoices.map((invoice, i) => {
+                    return <InvoiceItemList data={invoice} key={i} />;
                 })}
             </section>
         </AppLayout>
