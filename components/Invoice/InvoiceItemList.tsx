@@ -36,7 +36,7 @@ const InvoiceItemList: FC<InvoiceItemListProps> = (props) => {
                                 <span>{dateFormat(props.data.paymentDue)}</span>
                             </span>
                         </div>
-                        <div className="text-lg font-bold text-center">
+                        <div className="text-lg font-bold text-left md:text-center">
                             <span>{moneyStringFormat(props.data.total)}</span>
                         </div>
                     </div>

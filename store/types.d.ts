@@ -1,4 +1,5 @@
 export interface SenderAddress {
+    id: string;
     street: string;
     city: string;
     postCode: string;
@@ -6,6 +7,7 @@ export interface SenderAddress {
 }
 
 export interface ClientAddress {
+    id: string;
     street: string;
     city: string;
     postCode: string;
@@ -13,6 +15,7 @@ export interface ClientAddress {
 }
 
 export interface Item {
+    id: string;
     name: string;
     quantity: number;
     price: number;
