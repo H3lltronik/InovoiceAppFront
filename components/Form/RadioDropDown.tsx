@@ -1,26 +1,16 @@
 import { Popover, Transition } from "@headlessui/react";
 import { FC, Fragment } from "react";
+import { useStore } from "../../store";
+import { filters } from "../../store/filters";
 import { Checkbox } from "./Checkbox";
-
-const solutions = [
-    {
-        name: "Draft",
-        value: "1",
-    },
-    {
-        name: "Pending",
-        value: "2",
-    },
-    {
-        name: "Paid",
-        value: "3",
-    },
-];
 
 type RadioDropDownProps = {
     className?: string;
 }
 export const RadioDropDown : FC<RadioDropDownProps> = (props) => {
+    const selectedFilters = useStore(state => state.selectedFilters);
+    const toggleFilter = useStore(state => state.toggleFilter)
+
     return (
         <div className={`mr-5 ${props.className}`}>
             <Popover className="relative">
@@ -50,9 +40,9 @@ export const RadioDropDown : FC<RadioDropDownProps> = (props) => {
                             <Popover.Panel className="absolute z-10 w-full min-w-[150px]">
                                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                     <div className="relative flex flex-col gap-3 bg-blue-dark p-6">
-                                        {solutions.map((item) => (
+                                        {filters.map((item) => (
                                             <div key={item.name}>
-                                                <Checkbox label={item.name} value={item.value}></Checkbox>
+                                                <Checkbox label={item.name} value={selectedFilters[item.value]} onChange={() => toggleFilter(item.value)}/>
                                             </div>
                                         ))}
                                     </div>

@@ -9,7 +9,7 @@ type InvoiceItemListProps = {
 };
 const InvoiceItemList: FC<InvoiceItemListProps> = (props) => {
     return (
-        <Link href="/invoice/1" passHref={true}>
+        <Link href={`/invoice/${props.data.id}`} passHref={true}>
             <button
                 className="bg-blue-dark hover:blue-darker hover:bg-opacity-25
         w-full md:h-16 rounded-lg text-sm p-5 md:p-0">

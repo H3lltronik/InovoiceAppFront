@@ -1,18 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { FC, useRef, useState } from "react";
+import { deleteInvoice } from "../../api";
 import { Button } from "../Form/Button";
-import { Input } from "../Form/Input";
-import { Select } from "../Form/Select";
+import Router from "next/router";
 import { Modal, ModalElement } from "./Modal";
 
-export const Delete = () => {
+type DeleteInvoiceProps = {
+  id: string
+}
+export const Delete : FC<DeleteInvoiceProps> = (props) => {
   const modalRef = useRef<ModalElement>(null);
 
   const closeModal = () => {
     modalRef.current?.closeModal();
   }
 
-  const doDelete = () => {
+  const doDelete = async () => {
+    const result = await deleteInvoice(props.id);
+    if (result.error) {
+      console.error("error while deleting")
+    }
     closeModal();
+    Router.push("/");
   }
 
   const getActivator = () => {

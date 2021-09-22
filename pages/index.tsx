@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getInvoices } from "../api";
 import AppBar from "../components/AppBar/AppBar";
 import { NewInvoice } from "../components/Dialog";
@@ -9,19 +9,17 @@ import { PageGuard } from "../components/Guard/PageGuard";
 import InvoiceItemList from "../components/Invoice/InvoiceItemList";
 import { AppLayout } from "../components/Layout/AppLayout";
 import {useStore} from '../store'
+import { Invoice } from "../store/types";
 
 const Home: NextPage = () => {
-    const addInvoice = useStore(state => state.addInvoice);
-    const invoices = useStore(state => state.invoices);
+    const setStoreInvoices = useStore(state => state.setInvoices);
+    const invoices = useStore(state => state.filteredInvoices)
 
     useEffect(() => {
         (async function () {
             const test = await getInvoices();
-            console.log("from api", test.data)
-            test.data?.forEach(invoice => {
-                console.log("a", invoice)
-                addInvoice(invoice);
-            })
+            if (test.data)
+            setStoreInvoices(test.data);
         })()
     }, [])
 
