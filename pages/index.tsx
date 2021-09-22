@@ -1,8 +1,11 @@
 import type { NextPage } from "next";
+import { useEffect } from "react";
+import { getInvoices } from "../api";
 import AppBar from "../components/AppBar/AppBar";
 import { NewInvoice } from "../components/Dialog";
 import { Button } from "../components/Form/Button";
 import { RadioDropDown } from "../components/Form/RadioDropDown";
+import { PageGuard } from "../components/Guard/PageGuard";
 import InvoiceItemList from "../components/Invoice/InvoiceItemList";
 import { AppLayout } from "../components/Layout/AppLayout";
 import {useStore} from '../store'
@@ -10,6 +13,17 @@ import {useStore} from '../store'
 const Home: NextPage = () => {
     const addInvoice = useStore(state => state.addInvoice);
     const invoices = useStore(state => state.invoices);
+
+    useEffect(() => {
+        (async function () {
+            const test = await getInvoices();
+            console.log("from api", test.data)
+            test.data?.forEach(invoice => {
+                console.log("a", invoice)
+                addInvoice(invoice);
+            })
+        })()
+    }, [])
 
     return (
         <AppLayout>
@@ -56,4 +70,4 @@ const Home: NextPage = () => {
     );
 };
 
-export default Home;
+export default PageGuard(Home, {});

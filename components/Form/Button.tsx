@@ -8,7 +8,7 @@ type ButtonProps = {
 
 export const Button: FC<ButtonProps> = (props) => {
     return (
-        <button className={`font-bold rounded-full h-12 flex items-center text-sm
+        <button type={'button'} className={`font-bold rounded-full h-12 flex items-center text-sm
             ${props.className}
             ${props.appendIcon? 'pl-2 pr-5':'px-7'}`
         }

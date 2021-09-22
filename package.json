@@ -10,13 +10,17 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.1",
+    "@hookform/resolvers": "^2.8.1",
     "@tippyjs/react": "^4.2.5",
+    "axios": "^0.21.4",
     "dayjs": "^1.10.7",
     "framer-motion": "^4.1.17",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-hook-form": "^7.15.4",
     "tippy.js": "^6.2.5",
+    "yup": "^0.32.9",
     "zustand": "^3.5.10"
   },
   "devDependencies": {
