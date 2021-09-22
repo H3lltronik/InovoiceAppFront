@@ -1,9 +1,10 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { generateUID } from "../../lib/lib";
-import { Invoice } from "../../store/types";
+import { generateUID, getEmptyInvoice } from "../../lib/lib";
+import { Invoice, Item } from "../../store/types";
 import { Button } from "../Form/Button";
 import { Input } from "../Form/Input";
+import { InvoiceItem } from "../Form/InvoiceItem";
 import { Select } from "../Form/Select";
 import { Backdrop } from "./Backdrop";
 import { Modal, ModalElement } from "./Modal";
@@ -16,11 +17,19 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
   const [invoice, setInvoice] = useState<Invoice|null>(null)
   const { register, handleSubmit, formState: { errors }, } = useForm({mode: 'onChange'});
   const onSubmit = async (data: any) => {
+    console.log("ola sucmit", data)
+    calcTotal()
   };
 
-  useEffect(() => {
+  const reloadInvoice = () => {
     if (props.invoice)
       setInvoice({...props.invoice})
+    else
+      setInvoice({...getEmptyInvoice()})
+  }
+
+  useEffect(() => {
+    reloadInvoice()
   }, [props])
 
   const doSubmit = () => {
@@ -52,16 +61,24 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
     setInvoice(newInvoice);
   }
 
+  const calcTotal = () => {
+    const result = invoice?.items.reduce((prev: Item, curr: Item): any => {
+      return prev.total + curr.total
+    });
+
+    return result;
+  }
+
   const closeModal = () => {
     modalRef.current?.closeModal();
   }
 
   return (
-    <Modal activator={props.children? props.children : getActivator()} ref={modalRef}>
+    <Modal activator={props.children? props.children : getActivator()} onModalToggle={reloadInvoice} ref={modalRef}>
       <section
         className={`absolute min-h-screen bg-black-light left-0 transform z-10
             w-full sm:w-3/4 lg:w-1/2 lg:max-w-screen-md text-white
-            text-left lg:text-center
+            text-left 
             pl-10 lg:pl-40 pt-32 lg:pt-10 pr-10 pb-10 lg:pb-10
         `}>
         <button className="flex lg:hidden text-white items-center text-xs text-white-dark mb-5 mt-4"
@@ -80,20 +97,20 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Street Address</div>
-            <Input value={invoice?.senderAddress.street}></Input>
+            <Input validation={ {...register("senderAddress.street", { required: true })}} value={invoice?.senderAddress.street}></Input>
           </div>
           <div className="flex gap-5">
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>City</div>
-              <Input value={invoice?.senderAddress.city}></Input>
+              <Input validation={ {...register("senderAddress.city", { required: true })}} value={invoice?.senderAddress.city}></Input>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Post Code</div>
-              <Input value={invoice?.senderAddress.postCode}></Input>
+              <Input validation={ {...register("senderAddress.postCode", { required: true })}} value={invoice?.senderAddress.postCode}></Input>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Country</div>
-              <Input value={invoice?.senderAddress.country}></Input>
+              <Input validation={ {...register("senderAddress.country", { required: true })}} value={invoice?.senderAddress.country}></Input>
             </div>
           </div>
 
@@ -103,26 +120,30 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Client’s Name</div>
-            <Input value={invoice?.clientName}></Input>
+            <Input validation={ {...register("clientName", { required: true })}} value={invoice?.clientName}></Input>
           </div>
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Client’s Email</div>
-            <Input value={invoice?.clientEmail}></Input>
+            <Input validation={ {...register("clientEmail", { required: true })}} value={invoice?.clientEmail}></Input>
           </div>
 
+          <div className={`mt-5`}>
+            <div className={`text-xs text-white-dark mb-2`}>Street Address</div>
+            <Input validation={ {...register("clientAddress.street", { required: true })}} value={invoice?.clientAddress.street}></Input>
+          </div>
           <div className="flex gap-5">
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>City</div>
-              <Input value={invoice?.senderAddress.city}></Input>
+              <Input validation={ {...register("clientAddress.city", { required: true })}} value={invoice?.clientAddress.city}></Input>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Post Code</div>
-              <Input value={invoice?.senderAddress.postCode}></Input>
+              <Input validation={ {...register("clientAddress.postCode", { required: true })}} value={invoice?.clientAddress.postCode}></Input>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Country</div>
-              <Input value={invoice?.senderAddress.country}></Input>
+              <Input validation={ {...register("clientAddress.country", { required: true })}} value={invoice?.clientAddress.country}></Input>
             </div>
           </div>
 
@@ -144,7 +165,7 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Project Description</div>
-            <Input value={invoice?.description}></Input>
+            <Input validation={ {...register("description", { required: true })}} value={invoice?.description}></Input>
           </div>
 
           <div className="mt-10">
@@ -166,39 +187,7 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
             </div>
 
             {invoice?.items.map((item, i) => {
-              return <div className="flex flex-wrap md:flex-nowrap w-full justify-between items-stretch md:items-center text-xs text-left gap-y-3 
-              md:gap-3 mt-5" key={item.id}>
-                      <div className="w-full md:w-2/4">
-                        <div className="mb-2 text-white-dark block md:hidden">Item Name</div>
-                        <div className="flex items-center">
-                          <Input boxClassName="flex-grow" value={item.name}></Input>
-                          <div className="pl-2 block xs:hidden">
-                            <button className="" onClick={() => removeItem(i)}>
-                              <img className="" src="/icon-delete.svg" alt="" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-1/3 md:w-1/6 px-1 md:px-0">
-                          <div className="mb-2 text-white-dark block md:hidden">QTY.</div>
-                          <Input value={item.quantity}></Input>
-                      </div>
-                      <div className="w-1/3 md:w-1/6 px-1 md:px-0">
-                          <div className="mb-2 text-white-dark block md:hidden">Price</div>
-                          <Input value={item.price}></Input>
-                      </div>
-                      <div className="w-1/3 md:w-1/6 flex flex-col px-1 md:px-0">
-                          <div className="mb-2 text-white-dark block md:hidden">Total</div>
-                          <div className="flex items-center gap-5 flex-grow">
-                            <div className="">{item.total.toFixed(2)}</div>
-                            <div className="hidden xs:block">
-                              <button className="" onClick={() => removeItem(i)}>
-                                <img className="" src="/icon-delete.svg" alt="" />
-                              </button>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
+              return <InvoiceItem register={register} onRemoveItem={removeItem} item={item} index={i} key={item.id}/>
             })}
 
             <div className="mt-5">

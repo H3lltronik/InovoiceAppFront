@@ -1,5 +1,5 @@
 export interface SenderAddress {
-    id: string;
+    id?: string;
     street: string;
     city: string;
     postCode: string;
@@ -7,7 +7,7 @@ export interface SenderAddress {
 }
 
 export interface ClientAddress {
-    id: string;
+    id?: string;
     street: string;
     city: string;
     postCode: string;
@@ -15,7 +15,7 @@ export interface ClientAddress {
 }
 
 export interface Item {
-    id: string;
+    id?: string;
     name: string;
     quantity: number;
     price: number;
@@ -23,7 +23,7 @@ export interface Item {
 }
 
 export interface Invoice {
-    id: string;
+    id?: string;
     createdAt: string;
     paymentDue: string;
     description: string;

@@ -6,15 +6,18 @@ type ModalProps = {
   children?: React.ReactNode;
   title?: React.ReactNode;
   containerClass?: string;
+  onModalToggle?: (status: boolean) => any;
 };
 const ModalComponent = (props: any, ref: any) => {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
+    if (props.onModalToggle) props.onModalToggle(false)
     setIsOpen(false);
   }
 
   function openModal() {
+    if (props.onModalToggle) props.onModalToggle(true)
     setIsOpen(true);
   }
 
@@ -73,6 +76,6 @@ const ModalComponent = (props: any, ref: any) => {
 };
 
 export type ModalElement = {
-  closeModal: () => any
+  closeModal: () => any,
 }
 export const Modal = forwardRef<ModalElement, ModalProps>(ModalComponent);
