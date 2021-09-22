@@ -44,13 +44,15 @@ const Login: NextPage = () => {
 
                     <div className="flex justify-center gap-5 mt-10">
                         <Link href="/register" passHref={true}>
-                            <Button
-                                className="bg-black-light text-white hover:bg-purple-light active:bg-purple-dark"
-                                onClick={() => {}}>
-                                <div className="">
-                                    <span className="">Register</span>
-                                </div>
-                            </Button>
+                            <div className="">
+                                <Button
+                                    className="bg-black-light text-white hover:bg-purple-light active:bg-purple-dark"
+                                    onClick={() => {}}>
+                                    <div className="">
+                                        <span className="">Register</span>
+                                    </div>
+                                </Button>
+                            </div>
                         </Link>
                         <Button
                             className="bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark"

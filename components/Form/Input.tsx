@@ -6,14 +6,14 @@ type InputProps = {
     boxClassName?: string
     type?: string
     validation?: any
-    value?: string
+    value?: any
 }
 export const Input: FC<InputProps> = (props) => {
     return (
         <Box className={`${props.boxClassName}`}>
             <input {...props.validation} 
-            value={props.value}
-            className={`${props.className} bg-transparent w-full text-white focus:outline-none h-full px-2`} 
+            defaultValue={props.value}
+            className={`${props.className} bg-transparent w-full text-white focus:outline-none h-full px-2 text-xs`} 
             type={`${props.type ?? 'text'}`} />
         </Box>
     )

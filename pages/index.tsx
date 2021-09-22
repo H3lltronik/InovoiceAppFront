@@ -1,15 +1,13 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getInvoices } from "../api";
-import AppBar from "../components/AppBar/AppBar";
 import { NewInvoice } from "../components/Dialog";
 import { Button } from "../components/Form/Button";
 import { RadioDropDown } from "../components/Form/RadioDropDown";
 import { PageGuard } from "../components/Guard/PageGuard";
 import InvoiceItemList from "../components/Invoice/InvoiceItemList";
 import { AppLayout } from "../components/Layout/AppLayout";
-import {useStore} from '../store'
-import { Invoice } from "../store/types";
+import { useStore } from '../store';
 
 const Home: NextPage = () => {
     const setStoreInvoices = useStore(state => state.setInvoices);
@@ -44,15 +42,17 @@ const Home: NextPage = () => {
 
                 <div className="flex items-center">
                     <RadioDropDown className="hidden xs:block"></RadioDropDown>
-                    <Button
-                        className="bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark"
-                        appendIcon="plus"
-                        onClick={() => {}}>
-                        <div className="">
-                            <span className="">New</span>
-                            <span className="hidden md:inline"> Invoice</span>
-                        </div>
-                    </Button>
+                    <NewInvoice>
+                        <Button
+                            className="bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark"
+                            appendIcon="plus"
+                            onClick={() => {}}>
+                            <div className="">
+                                <span className="">New</span>
+                                <span className="hidden md:inline"> Invoice</span>
+                            </div>
+                        </Button>
+                    </NewInvoice>
                 </div>
             </div>
             <div className="flex xs:hidden mt-5 justify-center">

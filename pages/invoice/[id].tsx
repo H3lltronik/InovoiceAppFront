@@ -40,7 +40,7 @@ const Details: NextPage = (props) => {
     const getOptions = () => {
         return (
             <div className="flex gap-2">
-                <NewInvoice></NewInvoice>
+                <NewInvoice invoice={invoice}></NewInvoice>
                 <Delete id={invoice?.id ?? '0'}></Delete>
                 <Button
                     className="bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark"
