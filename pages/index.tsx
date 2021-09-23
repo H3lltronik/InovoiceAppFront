@@ -28,14 +28,17 @@ const Home: NextPage = () => {
                     <h1 className="text-lg md:text-3xl font-bold text-white">
                         Invoices
                     </h1>
-                    <p className="font-normal text-xs text-white-dark mt-1">
+                    {invoices.length > 0 && <p className="font-normal text-xs text-white-dark mt-1">
                         <span className="hidden md:inline">There are </span>
                         <span className="">
-                            <span>7</span>
+                            <span>{invoices.length}</span>
                             <span className="hidden md:inline"> total</span>
                             <span> invoices</span>
                         </span>
-                    </p>
+                    </p>}
+                    {invoices.length == 0 && <p className="font-normal text-xs text-white-dark mt-1">
+                        <span className="">No Invoices</span>
+                    </p>}
                 </div>
 
                 <div className="flex-grow"></div>

@@ -4,12 +4,14 @@ type ButtonProps = {
     appendIcon?: 'plus',
     className?: string,
     onClick: () => void,
+    disabled?: boolean
 }
 
 export const Button: FC<ButtonProps> = (props) => {
     return (
-        <button type={'button'} className={`font-bold rounded-full h-12 flex items-center text-sm
+        <button disabled={!!props.disabled} type={'button'} className={`font-bold rounded-full h-12 flex items-center text-sm
             ${props.className}
+            ${props.disabled && 'opacity-50'}
             ${props.appendIcon? 'pl-2 pr-5':'px-7'}`
         }
         onClick={props.onClick}

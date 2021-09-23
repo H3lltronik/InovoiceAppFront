@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { updateInvoice } from "../../api";
 import { generateUID, getEmptyInvoice } from "../../lib/lib";
 import { paymentTerms } from "../../store/paymentTerms";
 import { Invoice, Item } from "../../store/types";
@@ -17,9 +18,13 @@ type NewInvoiceProps = {
 export const NewInvoice: FC<NewInvoiceProps> = (props) => {
   const modalRef = useRef<ModalElement>(null);
   const [invoice, setInvoice] = useState<Invoice|null>(null)
+  const [status, setStatus] = useState<'draft'|'pending'>('draft');
   const { register, handleSubmit, formState: { errors }, } = useForm({mode: 'onChange'});
   const onSubmit = async (data: any) => {
-    calcTotal()
+    const total = calcTotal();
+    // updateInvoice
+    console.log("gonna do submit", invoice, total, data)
+    window.location.reload()
   };
 
   const reloadInvoice = () => {
@@ -112,20 +117,24 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Street Address</div>
-            <Input validation={ {...register("senderAddress.street", { required: true })}} value={invoice?.senderAddress.street}></Input>
+            <Input validation={ {...register("senderAddress.street", { required: true })}} value={invoice?.senderAddress.street}
+            showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
           </div>
           <div className="flex gap-5">
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>City</div>
-              <Input validation={ {...register("senderAddress.city", { required: true })}} value={invoice?.senderAddress.city}></Input>
+              <Input validation={ {...register("senderAddress.city", { required: true })}} value={invoice?.senderAddress.city}
+              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Post Code</div>
-              <Input validation={ {...register("senderAddress.postCode", { required: true })}} value={invoice?.senderAddress.postCode}></Input>
+              <Input validation={ {...register("senderAddress.postCode", { required: true })}} value={invoice?.senderAddress.postCode}
+              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Country</div>
-              <Input validation={ {...register("senderAddress.country", { required: true })}} value={invoice?.senderAddress.country}></Input>
+              <Input validation={ {...register("senderAddress.country", { required: true })}} value={invoice?.senderAddress.country}
+              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
             </div>
           </div>
 
@@ -135,30 +144,36 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Client’s Name</div>
-            <Input validation={ {...register("clientName", { required: true })}} value={invoice?.clientName}></Input>
+            <Input validation={ {...register("clientName", { required: true })}} value={invoice?.clientName}
+            showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
           </div>
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Client’s Email</div>
-            <Input validation={ {...register("clientEmail", { required: true })}} value={invoice?.clientEmail}></Input>
+            <Input validation={ {...register("clientEmail", { required: true })}} value={invoice?.clientEmail}
+            showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
           </div>
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Street Address</div>
-            <Input validation={ {...register("clientAddress.street", { required: true })}} value={invoice?.clientAddress.street}></Input>
+            <Input validation={ {...register("clientAddress.street", { required: true })}} value={invoice?.clientAddress.street}
+            showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
           </div>
           <div className="flex gap-5">
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>City</div>
-              <Input validation={ {...register("clientAddress.city", { required: true })}} value={invoice?.clientAddress.city}></Input>
+              <Input validation={ {...register("clientAddress.city", { required: true })}} value={invoice?.clientAddress.city}
+              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Post Code</div>
-              <Input validation={ {...register("clientAddress.postCode", { required: true })}} value={invoice?.clientAddress.postCode}></Input>
+              <Input validation={ {...register("clientAddress.postCode", { required: true })}} value={invoice?.clientAddress.postCode}
+              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Country</div>
-              <Input validation={ {...register("clientAddress.country", { required: true })}} value={invoice?.clientAddress.country}></Input>
+              <Input validation={ {...register("clientAddress.country", { required: true })}} value={invoice?.clientAddress.country}
+              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
             </div>
           </div>
 
@@ -178,7 +193,8 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Project Description</div>
-            <Input validation={ {...register("description", { required: true })}} value={invoice?.description}></Input>
+            <Input validation={ {...register("description", { required: true })}} value={invoice?.description}
+            showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
           </div>
 
           <div className="mt-10">
@@ -218,11 +234,11 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
 
               <div className="flex items-center gap-3">
                 <Button className="bg-black-dark text-white hover:bg-purple-light active:bg-purple-dark"
-                onClick={() => doSubmit()}>
+                onClick={() => { setStatus('draft'); doSubmit()}}>
                   <span className="">Save as Draft</span>
                 </Button>
                 <Button className="bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark"
-                onClick={() => doSubmit()}>
+                onClick={() => { setStatus('pending'); doSubmit()}}>
                   <span className="">Save & Send</span>
                 </Button>
               </div>

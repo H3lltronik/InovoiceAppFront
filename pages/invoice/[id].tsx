@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { getInvoice } from "../../api";
+import { getInvoice, updateInvoice } from "../../api";
 import { NewInvoice } from "../../components/Dialog";
 import { Delete } from "../../components/Dialog/Delete";
 import { Button } from "../../components/Form/Button";
@@ -37,14 +37,29 @@ const Details: NextPage = (props) => {
         })();
     }, []);
 
+    const markAsPaid = async () => {
+        if (!invoice || !invoice.id) return
+        const toUpdate: Invoice = {...invoice};
+
+        toUpdate.status = 'paid'
+        const result = await updateInvoice(toUpdate.id, toUpdate);
+        window.location.reload()
+    }
+
+    const idPayed = () => {
+        return invoice?.status == 'paid'
+    }
+
     const getOptions = () => {
         return (
             <div className="flex gap-2">
                 <NewInvoice invoice={invoice}></NewInvoice>
                 <Delete id={invoice?.id ?? '0'}></Delete>
                 <Button
-                    className="bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark"
-                    onClick={() => {}}>
+                    disabled={idPayed()}
+                    className={`bg-purple-dark text-white active:bg-purple-dark hover:bg-purple-light 
+                    ${idPayed() && 'cursor-not-allowed'}`}
+                    onClick={markAsPaid}>
                     <span>Mark as Paid</span>
                 </Button>
             </div>

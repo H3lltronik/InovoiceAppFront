@@ -124,6 +124,15 @@ export async function deleteInvoice(id: string) {
     });
 }
 
+export async function updateInvoice(id: string, invoice: Invoice) {
+    return await resolve<Invoice>(async () => {
+        const config = getAccessTokenHeader();
+        return await axios
+            .patch(`http://192.168.100.3:4000/invoice/${id}`, invoice, config)
+            .then((res) => res.data);
+    });
+}
+
 function getAccessTokenHeader () {
     const access_token = localStorage.getItem("access_token");
     const config: AxiosRequestConfig = {

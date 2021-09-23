@@ -9,6 +9,8 @@ type InputProps = {
     value?: any
     onChange?: (value: any) => any
     append?: React.ReactNode
+    showError?: boolean
+    errorMessage?: string
 }
 export const Input: FC<InputProps> = (props) => {
     const [value, setValue] = useState("")
@@ -30,11 +32,12 @@ export const Input: FC<InputProps> = (props) => {
     return (
         <Box className={`${props.boxClassName}`}>
             <input {...props.validation} 
-            value={value} 
+            defaultChecked={value}
             onChange={e => onChange(e.target.value)}
             className={`${props.className} bg-transparent w-full text-white focus:outline-none h-full px-2 text-xs`} 
             type={`${props.type ?? 'text'}`} />
             {props.append}
+            {props.showError && <div className="text-xs text-red-500 mt-1">{props.errorMessage}</div>}
         </Box>
     )
 }
