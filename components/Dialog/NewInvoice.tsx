@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { generateUID, getEmptyInvoice } from "../../lib/lib";
+import { paymentTerms } from "../../store/paymentTerms";
 import { Invoice, Item } from "../../store/types";
 import { Button } from "../Form/Button";
 import { Datepicker } from "../Form/Datepicker";
@@ -73,6 +74,10 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
     modalRef.current?.closeModal();
   }
 
+  const isEditing = () : boolean => {
+    return !!invoice?.id
+  }
+
   return (
     <Modal activator={props.children? props.children : getActivator()} onModalToggle={reloadInvoice} ref={modalRef}>
       <section
@@ -88,7 +93,17 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
           </div>
           <div className="">Go back</div>
         </button>
-        <h2 className="text-white font-bold text-2xl">New Invoice</h2>
+        {
+          isEditing()?
+          <h2 className="text-white font-bold text-2xl">
+            <span className="">Edit </span>
+            <span className="text-2xl font-bold">
+                <span className="text-gray-light">#</span>
+                <span className="">{invoice?.id}</span>
+            </span>
+          </h2>
+          :<h2 className="text-white font-bold text-2xl">New Invoice</h2>
+        }
 
         <div className="mt-10">
           {invoice?.id && <input hidden {...register("id")} />}
@@ -150,16 +165,14 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
           <div className="flex gap-5">
             <div className={`mt-5 w-1/2`}>
               <div className={`text-xs text-white-dark mb-2`}>Issue Date</div>
-              <Datepicker/>
+              <Datepicker value={invoice?.createdAt} disabled={isEditing()}/>
             </div>
-            <div className={`mt-5 w-1/2`}>
+            <div className={`mt-5 w-1/2 z-10`}>
               <div className={`text-xs text-white-dark mb-2`}>Payment Terms</div>
               <Select
+                value={invoice?.paymentTerms}
                 label="test"
-                items={[
-                  { text: "test", value: "val" },
-                  { text: "test2", value: "val3" },
-                ]}></Select>
+                items={paymentTerms}></Select>
             </div>
           </div>
 

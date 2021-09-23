@@ -9,12 +9,19 @@ type SelectItem = {
 type SelectProps = {
     label: string;
     items: SelectItem[];
+    value?: string|number,
 };
 export const Select: FC<SelectProps> = (props) => {
     const [selected, setSelected] = useState<SelectItem|null>(null);
 
     useEffect(() => {
         setSelected(props.items[0])
+        
+        if (props.value) {
+            const propsSelected = props.items.find(i => i.value == props.value)
+            if (propsSelected)
+                setSelected(propsSelected)
+        }
     }, [])
     
     const doSelect = (item: SelectItem) => {
@@ -36,7 +43,9 @@ export const Select: FC<SelectProps> = (props) => {
                                                     ? "border-b-2"
                                                     : null
                                             } 
-                                            ${active && "bg-purple-dark"}`}>
+                                            ${active && "bg-purple-dark"}
+                                            ${(selected == item) && !active && 'bg-purple-light'}
+                                            `}>
                                     <div className="pointer-events-none">
                                         {item.text}
                                     </div>
@@ -53,7 +62,7 @@ export const Select: FC<SelectProps> = (props) => {
         <div>
             <Box>
                 <Menu>
-                    <Menu.Button className="flex h-full w-full items-center pl-2">
+                    <Menu.Button className="flex h-full w-full items-center pl-2 text-xs">
                         <span>{selected?.text}</span>
                     </Menu.Button>
                     <Menu.Items
