@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useReducer, useState } from 'react'
 import { Box } from './Box'
 
 type InputProps = {
@@ -10,11 +10,27 @@ type InputProps = {
     onChange?: (value: any) => any
 }
 export const Input: FC<InputProps> = (props) => {
+    const [value, setValue] = useState("")
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
+
+    useEffect(() => {
+        if (props.value) {
+            setValue(props.value)
+            forceUpdate() // OMG I think I hate React
+        }
+    }, [props])
+
+    const onChange = (eVal: string) => {
+        setValue (eVal)
+        if (props.onChange) 
+            props.onChange(eVal)
+    }
+
     return (
         <Box className={`${props.boxClassName}`}>
             <input {...props.validation} 
-            defaultValue={props.value}
-            onChange={e => { if (props.onChange) props.onChange(e.target.value) }}
+            value={value} 
+            onChange={e => onChange(e.target.value)}
             className={`${props.className} bg-transparent w-full text-white focus:outline-none h-full px-2 text-xs`} 
             type={`${props.type ?? 'text'}`} />
         </Box>

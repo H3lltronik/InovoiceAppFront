@@ -17,15 +17,14 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
   const [invoice, setInvoice] = useState<Invoice|null>(null)
   const { register, handleSubmit, formState: { errors }, } = useForm({mode: 'onChange'});
   const onSubmit = async (data: any) => {
-    console.log("ola sucmit", data)
     calcTotal()
   };
 
   const reloadInvoice = () => {
+    setInvoice({...getEmptyInvoice()})
+    
     if (props.invoice)
       setInvoice({...props.invoice})
-    else
-      setInvoice({...getEmptyInvoice()})
   }
 
   useEffect(() => {

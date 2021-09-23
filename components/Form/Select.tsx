@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Box } from "./Box";
 import { Menu } from "@headlessui/react";
 
@@ -11,31 +11,25 @@ type SelectProps = {
     items: SelectItem[];
 };
 export const Select: FC<SelectProps> = (props) => {
-    const getContent = () => {
-        return (
-            <button className="flex items-center px-4 w-full h-full">
-                <div className="text-sm text-white mr-4 font-bold">
-                    <span>{props.label}</span>
-                </div>
-                <div className="flex-grow"></div>
-                <div className="">
-                    <img src="/icon-arrow-down.svg" alt="" />
-                </div>
-            </button>
-        );
-    };
+    const [selected, setSelected] = useState<SelectItem|null>(null);
 
-    const selectValue = () => {};
+    useEffect(() => {
+        setSelected(props.items[0])
+    }, [])
+    
+    const doSelect = (item: SelectItem) => {
+        setSelected(item)
+    }
 
     const getItems = () => {
         return (
             <>
                 {props.items.map((item, index) => {
                     return (
-                        <Menu.Item as="div" key={index}>
+                        <Menu.Item as="button" key={index} onClick={() => doSelect(item)} className="block w-full">
                             {({ active }) => (
                                 <div
-                                    className={`border-blue-darker 
+                                    className={`border-blue-darker pointer-events-none
                                             px-3 text-sm py-3 w-full
                                             ${
                                                 index + 1 < props.items.length
@@ -43,9 +37,9 @@ export const Select: FC<SelectProps> = (props) => {
                                                     : null
                                             } 
                                             ${active && "bg-purple-dark"}`}>
-                                    <a href="/account-settings">
-                                        Account settings
-                                    </a>
+                                    <div className="pointer-events-none">
+                                        {item.text}
+                                    </div>
                                 </div>
                             )}
                         </Menu.Item>
@@ -60,7 +54,7 @@ export const Select: FC<SelectProps> = (props) => {
             <Box>
                 <Menu>
                     <Menu.Button className="flex h-full w-full items-center pl-2">
-                        <span>More</span>
+                        <span>{selected?.text}</span>
                     </Menu.Button>
                     <Menu.Items
                         className={`bg-blue-dark rounded-xl mt-5 ring-1 overflow-hidden`}>
