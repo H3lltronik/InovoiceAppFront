@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import Link from 'next/link'
 import { login } from "../../api";
 import Router from "next/router";
+import { PageUnguard } from "../../components/Guard/PageUnguard";
 
 const Login: NextPage = () => {
     const { handleSubmit, control } = useForm({mode: 'onChange'});
@@ -69,4 +70,4 @@ const Login: NextPage = () => {
     );
 };
 
-export default Login;
+export default PageUnguard(Login, {});

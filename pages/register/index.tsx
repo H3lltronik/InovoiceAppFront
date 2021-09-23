@@ -5,8 +5,9 @@ import { Input } from "../../components/Form/Input";
 import { AppLayout } from "../../components/Layout/AppLayout";
 import { useForm } from "react-hook-form";
 import Link from 'next/link'
+import { PageUnguard } from "../../components/Guard/PageUnguard";
 
-const Login: NextPage = () => {
+const Register: NextPage = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm({mode: 'onChange'});
     const onSubmit = (data: any) => {
     };
@@ -64,4 +65,4 @@ const Login: NextPage = () => {
     );
 };
 
-export default Login;
+export default PageUnguard(Register, {});

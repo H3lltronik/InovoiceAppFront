@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
+import { UserDropdown } from './UserDropdown'
 
 const AppBar = () => {
     return (
@@ -27,13 +28,14 @@ const AppBar = () => {
                         </div>
                     </button>
 
-                    <button className="relative w-28 h-full lg:h-28 lg:w-full 
+                    {/* <button className="relative w-28 h-full lg:h-28 lg:w-full 
                     border-l-2 lg:border-l-0 lg:border-t-2 border-gray-100 border-opacity-10
                     ">
                         <div className="absolute transform top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                             <img className="w-10 h-10 rounded-full" src="/image-avatar.jpg" alt="Avatar"/>
                         </div>
-                    </button>
+                    </button> */}
+                    <UserDropdown/>
                 </section>
             </div>
         </aside>

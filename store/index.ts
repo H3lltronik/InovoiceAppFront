@@ -1,7 +1,7 @@
 import createStore from "zustand";
 import data from "./data.json";
 import { Filter, filters } from "./filters";
-import { Invoice } from "./types";
+import { Invoice, User } from "./types";
 
 type StoreState = {
     invoices: Invoice[];
@@ -9,6 +9,7 @@ type StoreState = {
     invoiceDetails: Invoice | null;
     invoiceForm: Invoice | null;
     selectedFilters: any;
+    user: User | null;
 };
 type StoreMethods = {
     addInvoice: (invoice: Invoice) => any;
@@ -17,10 +18,12 @@ type StoreMethods = {
     setInvoiceForm: (invoice: Invoice) => any;
     toggleFilter: (filter: string) => any;
     getFilteredInvoices: () => any;
+    setUser: (user: User) => any;
+    resetStore: () => any;
 };
 type StoreType = StoreState & StoreMethods;
 
-export const useStore = createStore<StoreType>((set, get) => ({
+const initialState: StoreState = {
     invoices: [],
     filteredInvoices: [],
     invoiceDetails: null,
@@ -30,7 +33,20 @@ export const useStore = createStore<StoreType>((set, get) => ({
         pending: true,
         paid: true,
     },
+    user: null,
+};
 
+export const useStore = createStore<StoreType>((set, get) => ({
+    ...initialState,
+
+    resetStore: () =>
+        set((state: StoreState) => {
+            return { ...initialState };
+        }),
+    setUser: (user: User) =>
+        set((state: StoreState) => {
+            return { user };
+        }),
     addInvoice: (invoice: Invoice) =>
         set((state: StoreState) => {
             return { invoices: [...state.invoices, invoice] };
@@ -38,7 +54,7 @@ export const useStore = createStore<StoreType>((set, get) => ({
     setInvoices: (invoices: Invoice[]) =>
         set((state: StoreState) => {
             setTimeout(() => {
-                get().getFilteredInvoices()
+                get().getFilteredInvoices();
             }, 0);
             return { invoices };
         }),
@@ -55,21 +71,23 @@ export const useStore = createStore<StoreType>((set, get) => ({
             const filters = state.selectedFilters;
             filters[filter] = !filters[filter];
             get().getFilteredInvoices();
-            
+
             return { selectedFilters: filters };
         }),
-    getFilteredInvoices: () => 
+    getFilteredInvoices: () =>
         set((state: StoreState) => {
             const invoices = state.invoices;
             const filters = state.selectedFilters;
             const result = invoices.filter((invoice, index) => {
                 if (
-                    filters['draft'] && invoice.status == 'draft' ||
-                    filters['paid'] && invoice.status == 'paid' ||
-                    filters['pending'] && invoice.status == 'pending' ||
-                    (!filters['draft'] && !filters['paid'] && !filters['pending'])
-                    ) {
-                    return invoices
+                    (filters["draft"] && invoice.status == "draft") ||
+                    (filters["paid"] && invoice.status == "paid") ||
+                    (filters["pending"] && invoice.status == "pending") ||
+                    (!filters["draft"] &&
+                        !filters["paid"] &&
+                        !filters["pending"])
+                ) {
+                    return invoices;
                 }
             });
             return { filteredInvoices: result };

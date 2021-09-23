@@ -6,6 +6,13 @@ export interface SenderAddress {
     country: string;
 }
 
+export type User = {
+    id: number|string
+    profilePicture: string
+    refreshToken: string
+    username: string
+}
+
 export interface ClientAddress {
     id?: string;
     street: string;

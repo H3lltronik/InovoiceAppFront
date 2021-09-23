@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { Invoice } from "../store/types";
+import { Invoice, User } from "../store/types";
 
 export const resolve = async <T>(todo: () => any) => {
     type Resolved = {
@@ -49,11 +49,13 @@ type LoginResult = {
     refresh_token: string;
 };
 
+export const serverUrl = "http://192.168.100.3:4000";
+
 async function refreshToken() {
     try {
         const result = await axios
             .post(
-                "http://192.168.100.3:4000/auth/refresh-token",
+                `${serverUrl}/auth/refresh-token`,
                 {},
                 { withCredentials: true }
             )
@@ -68,7 +70,7 @@ async function refreshToken() {
 export async function login(payload: LoginPayload) {
     const result = await resolve<LoginResult>(async () =>
         axios
-            .post("http://192.168.100.3:4000/auth/login", payload, {
+            .post(`${serverUrl}/auth/login`, payload, {
                 withCredentials: true,
             })
             .then((res) => res.data)
@@ -80,20 +82,38 @@ export async function login(payload: LoginPayload) {
     return result;
 }
 
+export async function logout() {
+    const result = await resolve<LoginResult>(async () => {
+        const result = await axios
+            .post(
+                `${serverUrl}/auth/logout`,
+                {},
+                {
+                    withCredentials: true,
+                }
+            )
+            .then((res) => res.data)
+        
+        localStorage.removeItem("access_token");
+
+        return result;
+    }
+        
+    );
+    return result;
+}
+
 export async function checkUser() {
-    return await resolve<string>(async () => {
+    return await resolve<User>(async () => {
         const config = getAccessTokenHeader();
         return axios
             .post(
-                "http://192.168.100.3:4000/auth/check-token",
+                `${serverUrl}/auth/check-token`,
                 {},
                 { withCredentials: true, ...config }
             )
-            .then((res) => {
-                return "";
-            })
-    }
-    );
+            .then((res) => res.data);
+    });
 }
 
 export async function getInvoices() {
@@ -101,7 +121,7 @@ export async function getInvoices() {
         const config = getAccessTokenHeader();
 
         return await axios
-            .get("http://192.168.100.3:4000/invoice", config)
+            .get(`${serverUrl}/invoice`, config)
             .then((res) => res.data);
     });
 }
@@ -110,7 +130,7 @@ export async function getInvoice(id: string) {
     return await resolve<Invoice>(async () => {
         const config = getAccessTokenHeader();
         return await axios
-            .get(`http://192.168.100.3:4000/invoice/${id}`, config)
+            .get(`${serverUrl}/invoice/${id}`, config)
             .then((res) => res.data);
     });
 }
@@ -119,7 +139,7 @@ export async function deleteInvoice(id: string) {
     return await resolve<Invoice>(async () => {
         const config = getAccessTokenHeader();
         return await axios
-            .delete(`http://192.168.100.3:4000/invoice/${id}`, config)
+            .delete(`${serverUrl}/invoice/${id}`, config)
             .then((res) => res.data);
     });
 }
@@ -128,7 +148,7 @@ export async function updateInvoice(id: string, invoice: Invoice) {
     return await resolve<Invoice>(async () => {
         const config = getAccessTokenHeader();
         return await axios
-            .patch(`http://192.168.100.3:4000/invoice/${id}`, invoice, config)
+            .patch(`${serverUrl}/invoice/${id}`, invoice, config)
             .then((res) => res.data);
     });
 }
@@ -137,12 +157,12 @@ export async function createInvoice(invoice: Invoice) {
     return await resolve<Invoice>(async () => {
         const config = getAccessTokenHeader();
         return await axios
-            .post(`http://192.168.100.3:4000/invoice`, invoice, config)
+            .post(`${serverUrl}/invoice`, invoice, config)
             .then((res) => res.data);
     });
 }
 
-function getAccessTokenHeader () {
+function getAccessTokenHeader() {
     const access_token = localStorage.getItem("access_token");
     const config: AxiosRequestConfig = {
         headers: {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Router from "next/router";
 import { checkUser, login } from "../../api";
+import { useStore } from "../../store";
 
 type Options = {
     pathAfterFailure?: string;
@@ -9,15 +10,20 @@ type Options = {
 export const PageGuard = (Component: any = null, options: Options) => {
     const AuthenticatedRoute = (props: any) => {
         const [loading, setLoading] = useState(true);
+        const setUser = useStore((state) => state.setUser);
 
         useEffect(() => {
             (async function () {
                 const result = await checkUser();
-                
-                if (result.error)
+                console.log("User checked", result);
+
+                if (result.error || !result.data) {
                     Router.push(options.pathAfterFailure || "/login");
-                
-                setLoading(false)
+                } else {
+                    setUser(result.data);
+                }
+
+                setLoading(false);
             })();
         }, []);
 
@@ -25,7 +31,7 @@ export const PageGuard = (Component: any = null, options: Options) => {
             return <div />;
         }
 
-        return <Component {...props}/>;
+        return <Component {...props} />;
     };
 
     return AuthenticatedRoute;
