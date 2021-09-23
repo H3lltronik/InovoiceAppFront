@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { getInvoice, updateInvoice } from "../../api";
 import { NewInvoice } from "../../components/Dialog";
@@ -76,6 +77,10 @@ const Details: NextPage = (props) => {
 
     return (
         <AppLayout outside={getFooter()}>
+            <Head>
+                <title>H3lltronik | Invoice Details</title>
+            </Head>
+
             <Link href="/" passHref={true}>
                 <button className="flex text-white items-center text-xs mb-5 mt-4">
                     <div className="mr-5">

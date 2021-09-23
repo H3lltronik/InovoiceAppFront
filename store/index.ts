@@ -1,6 +1,4 @@
 import createStore from "zustand";
-import data from "./data.json";
-import { Filter, filters } from "./filters";
 import { Invoice, User } from "./types";
 
 type StoreState = {
@@ -10,6 +8,7 @@ type StoreState = {
     invoiceForm: Invoice | null;
     selectedFilters: any;
     user: User | null;
+    appLoading: boolean;
 };
 type StoreMethods = {
     addInvoice: (invoice: Invoice) => any;
@@ -20,6 +19,7 @@ type StoreMethods = {
     getFilteredInvoices: () => any;
     setUser: (user: User) => any;
     resetStore: () => any;
+    setAppLoading: (val: boolean) => any;
 };
 type StoreType = StoreState & StoreMethods;
 
@@ -34,11 +34,16 @@ const initialState: StoreState = {
         paid: true,
     },
     user: null,
+    appLoading: false,
 };
 
 export const useStore = createStore<StoreType>((set, get) => ({
     ...initialState,
 
+    setAppLoading: (val: boolean) =>
+        set((state: StoreState) => {
+            return { appLoading: val };
+        }),
     resetStore: () =>
         set((state: StoreState) => {
             return { ...initialState };

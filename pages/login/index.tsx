@@ -8,20 +8,24 @@ import Link from 'next/link'
 import { login } from "../../api";
 import Router from "next/router";
 import { PageUnguard } from "../../components/Guard/PageUnguard";
+import { useStore } from "../../store";
 
 const Login: NextPage = () => {
+    const setAppLoading = useStore(state => state.setAppLoading)
     const { handleSubmit, control } = useForm({mode: 'onChange'});
     const onSubmit = async (data: any) => {
         const result = await login({
             username: data.username,
             password: data.password,
         })
+        setAppLoading(false)
         if (!result.error) {
             Router.push("/");
         }
     };
 
     const doSubmit = () => {
+        setAppLoading(true)
         handleSubmit(onSubmit)();
     }
 

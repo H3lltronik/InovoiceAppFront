@@ -15,7 +15,6 @@ export const PageGuard = (Component: any = null, options: Options) => {
         useEffect(() => {
             (async function () {
                 const result = await checkUser();
-                console.log("User checked", result);
 
                 if (result.error || !result.data) {
                     Router.push(options.pathAfterFailure || "/login");

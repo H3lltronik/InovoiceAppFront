@@ -4,8 +4,11 @@ import type { AppProps } from 'next/app'
 import { useEffect } from 'react'
 import { appHeight } from '../lib/style-lib';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useStore } from '../store';
+import { AppLoading } from '../components/Layout/AppLoading';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  const user = useStore(state => state.user);
 
   useEffect(() => {
     window.addEventListener('resize', appHeight);
@@ -21,6 +24,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         opacity: 1,
       },
     }}>
+      <AppLoading/>
       <Component {...pageProps} />
     </motion.div>
   </AnimatePresence>

@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Head from "next/head";
 import { useEffect } from "react";
 import { getInvoices } from "../api";
 import { NewInvoice } from "../components/Dialog";
@@ -23,6 +24,10 @@ const Home: NextPage = () => {
 
     return (
         <AppLayout>
+            <Head>
+                <title>H3lltronik | Invoice App</title>
+            </Head>
+
             <div className="flex">
                 <div className="">
                     <h1 className="text-lg md:text-3xl font-bold text-white">
