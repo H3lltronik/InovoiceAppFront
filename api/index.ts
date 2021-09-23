@@ -133,6 +133,15 @@ export async function updateInvoice(id: string, invoice: Invoice) {
     });
 }
 
+export async function createInvoice(invoice: Invoice) {
+    return await resolve<Invoice>(async () => {
+        const config = getAccessTokenHeader();
+        return await axios
+            .post(`http://192.168.100.3:4000/invoice`, invoice, config)
+            .then((res) => res.data);
+    });
+}
+
 function getAccessTokenHeader () {
     const access_token = localStorage.getItem("access_token");
     const config: AxiosRequestConfig = {

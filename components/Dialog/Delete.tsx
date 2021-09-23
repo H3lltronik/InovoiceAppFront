@@ -41,7 +41,7 @@ export const Delete : FC<DeleteInvoiceProps> = (props) => {
         <h2 className="font-bold text-2xl">Confirm Deletion</h2>
 
         <p className={`text-xs text-white-dark mt-4`}>
-          Are you sure you want to delete invoice #XM9141? This action cannot be
+          Are you sure you want to delete invoice #{props.id}? This action cannot be
           undone.
         </p>
 

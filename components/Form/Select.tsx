@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { Box } from "./Box";
 import { Menu } from "@headlessui/react";
+import { useController } from "react-hook-form";
 
 type SelectItem = {
     text: string;
@@ -10,9 +11,18 @@ type SelectProps = {
     label: string;
     items: SelectItem[];
     value?: string|number,
+    name: string;
+    control: any;
+    rules?: any,
 };
 export const Select: FC<SelectProps> = (props) => {
     const [selected, setSelected] = useState<SelectItem|null>(null);
+    const controller = useController({
+        name: props.name,
+        control: props.control,
+        rules: props.rules,
+        defaultValue: props.value,
+    });
 
     useEffect(() => {
         setSelected(props.items[0])
@@ -26,6 +36,7 @@ export const Select: FC<SelectProps> = (props) => {
     
     const doSelect = (item: SelectItem) => {
         setSelected(item)
+        controller.field.onChange(item.value);
     }
 
     const getItems = () => {

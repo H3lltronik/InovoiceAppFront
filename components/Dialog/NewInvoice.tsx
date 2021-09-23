@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { updateInvoice } from "../../api";
+import { createInvoice, updateInvoice } from "../../api";
 import { generateUID, getEmptyInvoice } from "../../lib/lib";
 import { paymentTerms } from "../../store/paymentTerms";
 import { Invoice, Item } from "../../store/types";
@@ -9,7 +9,6 @@ import { Datepicker } from "../Form/Datepicker";
 import { Input } from "../Form/Input";
 import { InvoiceItem } from "../Form/InvoiceItem";
 import { Select } from "../Form/Select";
-import { Backdrop } from "./Backdrop";
 import { Modal, ModalElement } from "./Modal";
 
 type NewInvoiceProps = {
@@ -18,12 +17,17 @@ type NewInvoiceProps = {
 export const NewInvoice: FC<NewInvoiceProps> = (props) => {
   const modalRef = useRef<ModalElement>(null);
   const [invoice, setInvoice] = useState<Invoice|null>(null)
-  const [status, setStatus] = useState<'draft'|'pending'>('draft');
-  const { register, handleSubmit, formState: { errors }, } = useForm({mode: 'onChange'});
+  const { handleSubmit, control, register } = useForm({mode: 'onChange'});
+  let status: string = "draft";
+
   const onSubmit = async (data: any) => {
-    const total = calcTotal();
-    // updateInvoice
-    console.log("gonna do submit", invoice, total, data)
+    data.status = status
+    console.log("dataa", data, isEditing(), !isEditing() && !!data)
+    if (isEditing() && invoice && invoice.id) {
+      await updateInvoice(invoice.id, data);
+    } else if (!isEditing() && !!data) {
+      await createInvoice(data);
+    }
     window.location.reload()
   };
 
@@ -38,8 +42,9 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
     reloadInvoice()
   }, [props])
 
-  const doSubmit = () => {
-      handleSubmit(onSubmit)();
+  const doSubmit = (stat: any) => {
+    status = stat;
+    handleSubmit(onSubmit)()
   }
 
   const getActivator = () => {
@@ -55,7 +60,7 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
   const addItem = () => {
     if (!invoice) return
     const newInvoice = {...invoice}
-    newInvoice.items = [...invoice.items, {name: '', price: 0, quantity: 0, total: 0, id: generateUID()}]
+    newInvoice.items = [...invoice.items, {name: '', price: 0, quantity: 0, total: 0 }]
     setInvoice(newInvoice);
   }
 
@@ -65,14 +70,6 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
     newInvoice.items = [...invoice.items];
     newInvoice.items.splice(index, 1)
     setInvoice(newInvoice);
-  }
-
-  const calcTotal = () => {
-    const result = invoice?.items.reduce((prev: Item, curr: Item): any => {
-      return prev.total + curr.total
-    });
-
-    return result;
   }
 
   const closeModal = () => {
@@ -111,30 +108,30 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
         }
 
         <div className="mt-10">
-          {invoice?.id && <input hidden {...register("id")} />}
+          {invoice?.id && <input hidden />}
 
           <div className="text-sm text-purple-light font-bold">Bill from</div>
 
+          <Input control={control} name="senderAddress.id" value={invoice?.senderAddress.id} hidden/>
+          <Input control={control} name="clientAddress.id" value={invoice?.clientAddress.id} hidden/>
+          <Input control={control} name="id" value={invoice?.id} hidden/>
+
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Street Address</div>
-            <Input validation={ {...register("senderAddress.street", { required: true })}} value={invoice?.senderAddress.street}
-            showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+            <Input rules={{ required: true }} control={control} name="senderAddress.street" value={invoice?.senderAddress.street}/>
           </div>
           <div className="flex gap-5">
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>City</div>
-              <Input validation={ {...register("senderAddress.city", { required: true })}} value={invoice?.senderAddress.city}
-              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+              <Input rules={{ required: true }} control={control} name="senderAddress.city" value={invoice?.senderAddress.city}/>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Post Code</div>
-              <Input validation={ {...register("senderAddress.postCode", { required: true })}} value={invoice?.senderAddress.postCode}
-              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+              <Input rules={{ required: true }} control={control} name="senderAddress.postCode" value={invoice?.senderAddress.postCode}/>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Country</div>
-              <Input validation={ {...register("senderAddress.country", { required: true })}} value={invoice?.senderAddress.country}
-              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+              <Input rules={{ required: true }} control={control} name="senderAddress.country" value={invoice?.senderAddress.country}/>
             </div>
           </div>
 
@@ -144,47 +141,41 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Client’s Name</div>
-            <Input validation={ {...register("clientName", { required: true })}} value={invoice?.clientName}
-            showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+            <Input rules={{ required: true }} control={control} name="clientName" value={invoice?.clientName}/>
           </div>
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Client’s Email</div>
-            <Input validation={ {...register("clientEmail", { required: true })}} value={invoice?.clientEmail}
-            showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+            <Input rules={{ required: true }} control={control} name="clientEmail" value={invoice?.clientEmail}/>
           </div>
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Street Address</div>
-            <Input validation={ {...register("clientAddress.street", { required: true })}} value={invoice?.clientAddress.street}
-            showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+            <Input rules={{ required: true }} control={control} name="clientAddress.street" value={invoice?.clientAddress.street}/>
           </div>
           <div className="flex gap-5">
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>City</div>
-              <Input validation={ {...register("clientAddress.city", { required: true })}} value={invoice?.clientAddress.city}
-              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+              <Input rules={{ required: true }} control={control} name="clientAddress.city" value={invoice?.clientAddress.city}/>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Post Code</div>
-              <Input validation={ {...register("clientAddress.postCode", { required: true })}} value={invoice?.clientAddress.postCode}
-              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+              <Input rules={{ required: true }} control={control} name="clientAddress.postCode" value={invoice?.clientAddress.postCode}/>
             </div>
             <div className={`mt-5`}>
               <div className={`text-xs text-white-dark mb-2`}>Country</div>
-              <Input validation={ {...register("clientAddress.country", { required: true })}} value={invoice?.clientAddress.country}
-              showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+              <Input rules={{ required: true }} control={control} name="clientAddress.country" value={invoice?.clientAddress.country}/>
             </div>
           </div>
 
           <div className="flex gap-5">
             <div className={`mt-5 w-1/2`}>
               <div className={`text-xs text-white-dark mb-2`}>Issue Date</div>
-              <Datepicker value={invoice?.createdAt} disabled={isEditing()}/>
+              <Datepicker rules={{ required: true }} name="paymentDue" control={control} value={invoice?.createdAt} disabled={isEditing()}/>
             </div>
             <div className={`mt-5 w-1/2 z-10`}>
               <div className={`text-xs text-white-dark mb-2`}>Payment Terms</div>
-              <Select
+              <Select rules={{ required: true }} name="paymentTerms" control={control}
                 value={invoice?.paymentTerms}
                 label="test"
                 items={paymentTerms}></Select>
@@ -193,8 +184,7 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
 
           <div className={`mt-5`}>
             <div className={`text-xs text-white-dark mb-2`}>Project Description</div>
-            <Input validation={ {...register("description", { required: true })}} value={invoice?.description}
-            showError={errors.senderAddress?.street} errorMessage={"Required field"}/>
+            <Input rules={{ required: true }} control={control} name="description" value={invoice?.description}/>
           </div>
 
           <div className="mt-10">
@@ -216,7 +206,7 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
             </div>
 
             {invoice?.items.map((item, i) => {
-              return <InvoiceItem register={register} onRemoveItem={removeItem} item={item} index={i} key={item.id}/>
+              return <InvoiceItem control={control} onRemoveItem={removeItem} item={item} index={i} key={item.id}/>
             })}
 
             <div className="mt-5">
@@ -234,11 +224,11 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
 
               <div className="flex items-center gap-3">
                 <Button className="bg-black-dark text-white hover:bg-purple-light active:bg-purple-dark"
-                onClick={() => { setStatus('draft'); doSubmit()}}>
+                onClick={() => { doSubmit('draft')}}>
                   <span className="">Save as Draft</span>
                 </Button>
                 <Button className="bg-purple-dark text-white hover:bg-purple-light active:bg-purple-dark"
-                onClick={() => { setStatus('pending'); doSubmit()}}>
+                onClick={() => { doSubmit('pending')}}>
                   <span className="">Save & Send</span>
                 </Button>
               </div>
