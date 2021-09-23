@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { generateUID, getEmptyInvoice } from "../../lib/lib";
 import { Invoice, Item } from "../../store/types";
 import { Button } from "../Form/Button";
+import { Datepicker } from "../Form/Datepicker";
 import { Input } from "../Form/Input";
 import { InvoiceItem } from "../Form/InvoiceItem";
 import { Select } from "../Form/Select";
@@ -149,7 +150,7 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
           <div className="flex gap-5">
             <div className={`mt-5 w-1/2`}>
               <div className={`text-xs text-white-dark mb-2`}>Issue Date</div>
-              <Input></Input>
+              <Datepicker/>
             </div>
             <div className={`mt-5 w-1/2`}>
               <div className={`text-xs text-white-dark mb-2`}>Payment Terms</div>

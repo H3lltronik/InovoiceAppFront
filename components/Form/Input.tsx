@@ -8,6 +8,7 @@ type InputProps = {
     validation?: any
     value?: any
     onChange?: (value: any) => any
+    append?: React.ReactNode
 }
 export const Input: FC<InputProps> = (props) => {
     const [value, setValue] = useState("")
@@ -33,6 +34,7 @@ export const Input: FC<InputProps> = (props) => {
             onChange={e => onChange(e.target.value)}
             className={`${props.className} bg-transparent w-full text-white focus:outline-none h-full px-2 text-xs`} 
             type={`${props.type ?? 'text'}`} />
+            {props.append}
         </Box>
     )
 }
