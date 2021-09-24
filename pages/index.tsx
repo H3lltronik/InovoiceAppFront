@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     }, []);
 
     return (
-        <AppLayout>
+        <AppLayout className="pb-10">
             <Head>
                 <title>H3lltronik | Invoice App</title>
             </Head>

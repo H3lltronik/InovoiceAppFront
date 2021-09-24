@@ -10,6 +10,7 @@ import { Input } from "../Form/Input";
 import { InvoiceItem } from "../Form/InvoiceItem";
 import { Select } from "../Form/Select";
 import { Modal, ModalElement } from "./Modal";
+import Router from "next/router";
 
 type NewInvoiceProps = {
   invoice?: Invoice|null,
@@ -28,7 +29,7 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
     } else if (!isEditing() && !!data) {
       await createInvoice(data);
     }
-    window.location.reload()
+    Router.reload()
   };
 
   const reloadInvoice = () => {
@@ -88,7 +89,7 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
             text-left 
             pl-10 lg:pl-40 pt-32 lg:pt-10 pr-10 pb-10 lg:pb-10
         `}>
-        <button className="flex lg:hidden items-center text-xs dark:text-white-dark mb-5 mt-4"
+        <button className="flex lg:hidden items-center text-xs text-black dark:text-white-dark mb-5 mt-4"
         onClick={closeModal}>
           <div className="mr-5">
             <img src="/icon-arrow-left.svg" alt="" />
@@ -206,7 +207,7 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
             </div>
 
             {invoice?.items.map((item, i) => {
-              return <InvoiceItem control={control} onRemoveItem={removeItem} item={item} index={i} key={item.id}/>
+              return <InvoiceItem control={control} onRemoveItem={removeItem} item={item} index={i} key={item.id + i}/>
             })}
 
             <div className="mt-5">

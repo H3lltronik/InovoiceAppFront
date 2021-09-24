@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { toggleTheme } from "../../lib/lib";
 import { ProfilePicture, ProfilePictureElement } from "../Form/ProfilePicture";
 import { UserDropdown } from "./UserDropdown";
+import Router from "next/router";
 
 const AppBar = () => {
     const profilePictureRef = useRef<ProfilePictureElement>(null);
@@ -15,7 +16,7 @@ const AppBar = () => {
                 lg:w-28 h-20 lg:h-screen z-20
                 lg:rounded-r-3xl bg-blue-darker">
             <div className="flex flex-row lg:flex-col h-full">
-                <button
+                <button onClick={() => { Router.push('/') }}
                     className="relative bg-purple-dark
                         w-20 h-full lg:w-full lg:h-28
                         lg:rounded-r-3xl overflow-hidden">
@@ -33,7 +34,7 @@ const AppBar = () => {
                 <div className="flex-grow"></div>
 
                 <section className="flex flex-row lg:flex-col lg:w-full">
-                    <button className="flex h-full lg:h-28 h:lg-auto lg:w-full px-10 lg:px-0"
+                    <button className="flex h-full lg:h-28 h:lg-auto lg:w-full px-10 lg:px-0 active:bg-white-dark transition duration-300"
                         onClick={toggleTheme}>
                         <div className="inline-block m-auto">
                             <img

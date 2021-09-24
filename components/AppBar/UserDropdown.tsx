@@ -71,9 +71,9 @@ export const UserDropdown: FC<UserDropdownProps> = (props) => {
     return (
         <div className="relative">
             <Menu>
-                <Menu.Button className="flex h-full w-full items-center pl-2 text-xs">
+                <Menu.Button className="flex h-full w-full items-center pl-2 text-xs active:bg-white-dark theme-transition rounded-br-2xl">
                     <div
-                        className="relative w-28 h-full lg:h-28 lg:w-full 
+                        className="relative w-28 h-full lg:h-28 lg:w-full
                         border-l-2 lg:border-l-0 lg:border-t-2 border-gray-100 border-opacity-10
                         ">
                         <div className="absolute transform top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">

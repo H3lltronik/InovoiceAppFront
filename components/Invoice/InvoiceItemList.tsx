@@ -11,8 +11,8 @@ const InvoiceItemList: FC<InvoiceItemListProps> = (props) => {
     return (
         <Link href={`/invoice/${props.data.id}`} passHref={true}>
             <button
-                className="bg-white dark:bg-blue-dark hover:blue-darker hover:bg-opacity-25 theme-transition
-                    w-full md:h-16 rounded-lg text-sm p-5 md:p-0">
+                className="bg-white dark:bg-blue-dark hover:bg-blue-darker dark:hover:bg-gray-dark hover:bg-opacity-10 
+                    theme-transition w-full md:h-16 rounded-lg text-sm p-5 md:p-0">
                 <div className="w-full h-full items-center dark:text-white grid grid-cols-2 md:grid-cols-5 md:grid-flow-col gap-y-7">
                     <div className="text-left md:text-center">
                         <span className="text-gray-dark">#</span>

@@ -7,6 +7,7 @@ import { NewInvoice } from "../../components/Dialog";
 import { Delete } from "../../components/Dialog/Delete";
 import { Button } from "../../components/Form/Button";
 import { PageGuard } from "../../components/Guard/PageGuard";
+import Router from "next/router";
 import {
     BadgeStatus,
     InvoiceBadge,
@@ -44,7 +45,7 @@ const Details: NextPage = (props) => {
 
         toUpdate.status = 'paid'
         const result = await updateInvoice(toUpdate.id, toUpdate);
-        window.location.reload()
+        Router.reload()
     }
 
     const idPayed = () => {
@@ -163,8 +164,8 @@ const Details: NextPage = (props) => {
                     </div>
                 </div>
 
-                <div className="block md:hidden">
-                    <div className="text-white-dark">Sent to</div>
+                <div className="block md:hidden mt-3 mt:md:0">
+                    <div className="text-gray-light dark:text-white-dark">Sent to</div>
                     <div className="">{invoice?.clientEmail}</div>
                 </div>
 

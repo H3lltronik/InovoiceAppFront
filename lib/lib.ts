@@ -28,10 +28,19 @@ export const toggleTheme = () => {
     if (htmlClasses.contains("light")) {
         htmlClasses.remove("light");
         htmlClasses.add("dark");
+
+        localStorage.setItem('theme', 'dark')
     } else if (htmlClasses.contains("dark")) {
         htmlClasses.remove("dark");
         htmlClasses.add("light");
+        
+        localStorage.setItem('theme', 'light')
     }
+}
+
+export const loadTheme = () => {
+    const theme = localStorage.getItem('theme') ?? 'dark'
+    document.querySelector("html")?.classList.add(theme);
 }
 
 export const getEmptyInvoice = (): Invoice => {

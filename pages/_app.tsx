@@ -6,12 +6,14 @@ import { appHeight } from '../lib/style-lib';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useStore } from '../store';
 import { AppLoading } from '../components/Layout/AppLoading';
+import { loadTheme } from '../lib/lib';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const user = useStore(state => state.user);
 
   useEffect(() => {
     window.addEventListener('resize', appHeight);
+    loadTheme();
     appHeight();
   }, []);
 
