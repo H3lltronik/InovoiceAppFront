@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { Invoice, User } from "../store/types";
+import { CreateUser, Invoice, User } from "../store/types";
 
 export const resolve = async <T>(todo: () => any) => {
     type Resolved = {
@@ -110,6 +110,19 @@ export async function checkUser() {
             .post(
                 `${serverUrl}/auth/check-token`,
                 {},
+                { withCredentials: true, ...config }
+            )
+            .then((res) => res.data);
+    });
+}
+
+export async function createUser(payload: CreateUser) {
+    return await resolve<User>(async () => {
+        const config = getAccessTokenHeader();
+        return axios
+            .post(
+                `${serverUrl}/user`,
+                payload,
                 { withCredentials: true, ...config }
             )
             .then((res) => res.data);

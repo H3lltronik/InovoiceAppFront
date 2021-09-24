@@ -37,11 +37,6 @@ export const Input: FC<InputProps> = (props) => {
 
     return (
         <Box className={`${props.boxClassName} ${props.hidden && 'hidden'}`}>
-            {/* <div className="text-xs right-96 -top-96 absolute text-white-dark">
-                {JSON.stringify(controller.field)} <br />
-                {JSON.stringify(controller.fieldState)} <br />
-                {JSON.stringify(controller.formState)} <br />
-            </div> */}
             <input hidden={props.hidden}
                 defaultValue={props.value}
                 onChange={(e) => {
@@ -56,8 +51,5 @@ export const Input: FC<InputProps> = (props) => {
                 <div className="text-xs text-red-500 mt-1">Required field</div>
             )}
         </Box>
-        // <Controller rules={props.rules} control={props.control} name={props.name} render={({ field, fieldState, formState }) => {
-        //     return
-        // }}/>
     );
 };

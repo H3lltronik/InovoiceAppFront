@@ -6,13 +6,19 @@ import { useStore } from "../../store";
 import { ProfilePicture, ProfilePictureElement } from "../Form/ProfilePicture";
 
 type UserDropdownProps = {
-    profilePictureRef: any,
+    profilePictureRef: any;
 };
 export const UserDropdown: FC<UserDropdownProps> = (props) => {
     const user = useStore((state) => state.user);
-    const resetStore = useStore(state => state.resetStore);
+    const resetStore = useStore((state) => state.resetStore);
 
     const options = [
+        {
+            item: <div>Change picture</div>,
+            action: () => {
+                props.profilePictureRef.current?.openModal();
+            },
+        },
         {
             item: <div>Log out</div>,
             action: async () => {
@@ -21,10 +27,6 @@ export const UserDropdown: FC<UserDropdownProps> = (props) => {
 
                 Router.push("/login");
             },
-        },
-        {
-            item: <div>Change picture</div>,
-            action: () => {props.profilePictureRef.current?.openModal()},
         },
     ];
     const getItems = () => {
@@ -61,9 +63,8 @@ export const UserDropdown: FC<UserDropdownProps> = (props) => {
     };
 
     const getProfilePic = () => {
-        if (user)
-            return `${user?.profilePicture}`;
-            
+        if (user) return `${user?.profilePicture}`;
+
         return `/no-picture.jpg`;
     };
 
@@ -84,9 +85,10 @@ export const UserDropdown: FC<UserDropdownProps> = (props) => {
                         </div>
                     </div>
                 </Menu.Button>
-                <Menu.Items className={`bg-blue-dark rounded-xl ring-1 
+                <Menu.Items
+                    className={`bg-blue-dark rounded-xl ring-1 
                     overflow-hidden top-full mt-2 right-3 lg:right-0 lg:left-full lg:top-0 lg:ml-2 lg:mt-0 absolute w-48
-                    ${!user && 'hidden'}`}>
+                    ${!user && "hidden"}`}>
                     {getItems()}
                 </Menu.Items>
             </Menu>

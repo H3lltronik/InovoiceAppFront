@@ -13,6 +13,12 @@ export type User = {
     username: string
 }
 
+export type CreateUser = {
+    username: string
+    password: string
+    confirmPassword: string
+}
+
 export interface ClientAddress {
     id?: string;
     street: string;

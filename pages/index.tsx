@@ -8,19 +8,18 @@ import { RadioDropDown } from "../components/Form/RadioDropDown";
 import { PageGuard } from "../components/Guard/PageGuard";
 import InvoiceItemList from "../components/Invoice/InvoiceItemList";
 import { AppLayout } from "../components/Layout/AppLayout";
-import { useStore } from '../store';
+import { useStore } from "../store";
 
 const Home: NextPage = () => {
-    const setStoreInvoices = useStore(state => state.setInvoices);
-    const invoices = useStore(state => state.filteredInvoices)
+    const setStoreInvoices = useStore((state) => state.setInvoices);
+    const invoices = useStore((state) => state.filteredInvoices);
 
     useEffect(() => {
         (async function () {
             const test = await getInvoices();
-            if (test.data)
-            setStoreInvoices(test.data);
-        })()
-    }, [])
+            if (test.data) setStoreInvoices(test.data);
+        })();
+    }, []);
 
     return (
         <AppLayout>
@@ -33,17 +32,21 @@ const Home: NextPage = () => {
                     <h1 className="text-lg md:text-3xl font-bold text-white">
                         Invoices
                     </h1>
-                    {invoices.length > 0 && <p className="font-normal text-xs text-white-dark mt-1">
-                        <span className="hidden md:inline">There are </span>
-                        <span className="">
-                            <span>{invoices.length}</span>
-                            <span className="hidden md:inline"> total</span>
-                            <span> invoices</span>
-                        </span>
-                    </p>}
-                    {invoices.length == 0 && <p className="font-normal text-xs text-white-dark mt-1">
-                        <span className="">No Invoices</span>
-                    </p>}
+                    {invoices.length > 0 && (
+                        <p className="font-normal text-xs text-white-dark mt-1">
+                            <span className="hidden md:inline">There are </span>
+                            <span className="">
+                                <span>{invoices.length}</span>
+                                <span className="hidden md:inline"> total</span>
+                                <span> invoices</span>
+                            </span>
+                        </p>
+                    )}
+                    {invoices.length == 0 && (
+                        <p className="font-normal text-xs text-white-dark mt-1">
+                            <span className="">No Invoices</span>
+                        </p>
+                    )}
                 </div>
 
                 <div className="flex-grow"></div>
@@ -57,20 +60,44 @@ const Home: NextPage = () => {
                             onClick={() => {}}>
                             <div className="">
                                 <span className="">New</span>
-                                <span className="hidden md:inline"> Invoice</span>
+                                <span className="hidden md:inline">
+                                    {" "}
+                                    Invoice
+                                </span>
                             </div>
                         </Button>
                     </NewInvoice>
                 </div>
             </div>
             <div className="flex xs:hidden mt-5 justify-center">
-              <RadioDropDown className=""></RadioDropDown>
+                <RadioDropDown className=""></RadioDropDown>
             </div>
 
             <section className="flex flex-col gap-5 mt-5 md:mt-14">
                 {invoices.map((invoice, i) => {
                     return <InvoiceItemList data={invoice} key={i} />;
                 })}
+
+                {invoices.length <= 0 && (
+                    <div className="w-60 mx-auto mt-10 lg:mt-28">
+                        <img
+                            className="w-full"
+                            src="/illustration-empty.svg"
+                            alt=""
+                        />
+
+                        <div className="mt-10">
+                            <h2 className="text-white-dark text-xl font-bold text-center">
+                                There is nothing here
+                            </h2>
+
+                            <p className="text-white-dark text-xs text-justify mt-5">
+                                Create a new invoice by clicking the
+                                <b> New Invoice</b> button and get started
+                            </p>
+                        </div>
+                    </div>
+                )}
             </section>
         </AppLayout>
     );
