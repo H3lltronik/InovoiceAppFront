@@ -47,11 +47,11 @@ export const Select: FC<SelectProps> = (props) => {
                         <Menu.Item as="button" key={index} onClick={() => doSelect(item)} className="block w-full">
                             {({ active }) => (
                                 <div
-                                    className={`border-blue-darker pointer-events-none
-                                            px-3 text-sm py-3 w-full
+                                    className={`text-black dark:text-white border-gray-light dark:border-blue-darker font-bold
+                                        pointer-events-none px-3 text-sm py-3 w-full
                                             ${
                                                 index + 1 < props.items.length
-                                                    ? "border-b-2"
+                                                    ? "border-b"
                                                     : null
                                             } 
                                             ${active && "bg-purple-dark"}
@@ -73,11 +73,11 @@ export const Select: FC<SelectProps> = (props) => {
         <div>
             <Box>
                 <Menu>
-                    <Menu.Button className="flex h-full w-full items-center pl-2 text-xs">
+                    <Menu.Button className="text-black dark:text-white flex h-full w-full items-center pl-2 text-xs font-bold">
                         <span>{selected?.text}</span>
                     </Menu.Button>
                     <Menu.Items
-                        className={`bg-blue-dark rounded-xl mt-5 ring-1 overflow-hidden`}>
+                        className={`bg-white dark:bg-blue-dark rounded-xl mt-5 ring-1 overflow-hidden`}>
                         {getItems()}
                     </Menu.Items>
                 </Menu>

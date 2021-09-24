@@ -46,7 +46,7 @@ export const InvoiceItem: FC<InvoiceItemProps> = (props) => {
                     <div className="w-full md:w-2/4">
                         <Input control={props.control} name={`items.${props.index}.id`} value={item.id} hidden/>
 
-                        <div className="mb-2 text-white-dark block md:hidden">
+                        <div className="mb-2 text-gray-dark dark:text-white-dark block md:hidden">
                             Item Name
                         </div>
                         <div className="flex items-center">
@@ -70,7 +70,7 @@ export const InvoiceItem: FC<InvoiceItemProps> = (props) => {
                         </div>
                     </div>
                     <div className="w-1/3 md:w-1/6 px-1 md:px-0">
-                        <div className="mb-2 text-white-dark block md:hidden">
+                        <div className="mb-2 text-gray-dark dark:text-white-dark block md:hidden">
                             QTY.
                         </div>
                         <Input
@@ -81,7 +81,7 @@ export const InvoiceItem: FC<InvoiceItemProps> = (props) => {
                             value={item.quantity}></Input>
                     </div>
                     <div className="w-1/3 md:w-1/6 px-1 md:px-0">
-                        <div className="mb-2 text-white-dark block md:hidden">
+                        <div className="mb-2 text-gray-dark dark:text-white-dark block md:hidden">
                             Price
                         </div>
                         <Input
@@ -92,10 +92,10 @@ export const InvoiceItem: FC<InvoiceItemProps> = (props) => {
                             onChange={changePrice}></Input>
                     </div>
                     <div className="w-1/3 md:w-1/6 flex flex-col px-1 md:px-0">
-                        <div className="mb-2 text-white-dark block md:hidden">
+                        <div className="mb-2 text-gray-dark dark:text-white-dark block md:hidden">
                             Total
                         </div>
-                        <div className="flex items-center gap-5 flex-grow">
+                        <div className="flex items-center gap-5 flex-grow text-gray-dark dark:text-white-dark">
                             <div className="">{calcTotal().toFixed(2)}</div>
                             <div className="hidden xs:block">
                                 <button

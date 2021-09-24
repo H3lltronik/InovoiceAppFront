@@ -19,8 +19,8 @@ export const RadioDropDown : FC<RadioDropDownProps> = (props) => {
                         <Popover.Button
                             className={`
                                 ${open ? "" : "text-opacity-90"}
-                                text-white group bg-orange-700 px-3 py-2 rounded-md inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none 
-                                focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}>
+                                dark:text-white group bg-orange-700 px-3 py-2 rounded-md inline-flex items-center text-base hover:text-opacity-100 focus:outline-none 
+                                focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 font-bold`}>
                             <span className="text-sm">
                                 <span className="">Filter </span>
                                 <span className="hidden md:inline">by status</span>
@@ -39,7 +39,7 @@ export const RadioDropDown : FC<RadioDropDownProps> = (props) => {
                             leaveTo="opacity-0 translate-y-1">
                             <Popover.Panel className="absolute z-10 w-full min-w-[150px]">
                                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                                    <div className="relative flex flex-col gap-3 bg-blue-dark p-6">
+                                    <div className="relative flex flex-col gap-3 bg-white dark:bg-blue-dark p-6">
                                         {filters.map((item) => (
                                             <div key={item.name}>
                                                 <Checkbox label={item.name} value={selectedFilters[item.value]} onChange={() => toggleFilter(item.value)}/>

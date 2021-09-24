@@ -82,7 +82,7 @@ const Details: NextPage = (props) => {
             </Head>
 
             <Link href="/" passHref={true}>
-                <button className="flex text-white items-center text-xs mb-5 mt-4">
+                <button className="flex dark:text-white items-center text-xs mb-5 mt-4">
                     <div className="mr-5">
                         <img src="/icon-arrow-left.svg" alt="" />
                     </div>
@@ -90,12 +90,12 @@ const Details: NextPage = (props) => {
                 </button>
             </Link>
             <header
-                className={`bg-blue-darker rounded-lg px-8 py-6
+                className={`bg-white dark:bg-blue-darker rounded-lg px-8 py-6 theme-transition
                 flex items-center justify-between`}>
                 <div
                     className="flex items-center w-full md:w-auto
                     justify-between md:justify-start md:gap-2">
-                    <div className="text-white text-sm">Status</div>
+                    <div className="text-gray-light dark:text-white text-sm">Status</div>
                     
                     {invoice?.status == 'paid' && <InvoiceBadge status={BadgeStatus.PAID}/>}
                     {invoice?.status == 'pending' && <InvoiceBadge status={BadgeStatus.PENDING}/>}
@@ -105,18 +105,18 @@ const Details: NextPage = (props) => {
                 <div className="hidden md:block">{getOptions()}</div>
             </header>
 
-            <section className="bg-blue-darker rounded-lg px-8 py-6 mt-12 text-white text-sm">
-                <div className="flex flex-col md:flex-row gap-y-5 justify-between">
+            <section className="bg-white dark:bg-blue-darker rounded-lg px-8 py-6 mt-12 dark:text-white text-sm">
+                <div className="flex flex-col md:flex-row gap-y-5 justify-between theme-transition">
                     <div className="">
                         <div className="text-lg font-bold">
                             <span className="text-gray-light">#</span>
                             <span className="">{invoice?.id}</span>
                         </div>
-                        <div className="text-white-dark">
+                        <div className="text-gray-light dark:text-white-dark">
                             {invoice?.description}
                         </div>
                     </div>
-                    <div className="text-white-dark">
+                    <div className="text-gray-light dark:text-white-dark">
                         <div className="">{invoice?.senderAddress.street}</div>
                         <div className="">{invoice?.senderAddress.city}</div>
                         <div className="">
@@ -128,7 +128,7 @@ const Details: NextPage = (props) => {
 
                 <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-y-3 mt-5 md:mt-0">
                     <div className="">
-                        <div className="text-white-dark">Invoice Date</div>
+                        <div className="text-gray-light dark:text-white-dark">Invoice Date</div>
                         {invoice && (
                             <div className="font-bold text-base">
                                 {dateFormat(invoice?.createdAt)}
@@ -136,24 +136,24 @@ const Details: NextPage = (props) => {
                         )}
                     </div>
                     <div className="">
-                        <div className="text-white-dark">Bill To</div>
+                        <div className="text-gray-light dark:text-white-dark">Bill To</div>
                         <div className="font-bold text-base">
                             {invoice?.clientName}
                         </div>
                     </div>
                     <div className="hidden md:block">
-                        <div className="text-white-dark">Sent to</div>
+                        <div className="text-gray-light dark:text-white-dark">Sent to</div>
                         <div className="">{invoice?.clientEmail}</div>
                     </div>
                     <div className="">
-                        <div className="text-white-dark">Payment Due</div>
+                        <div className="text-gray-light dark:text-white-dark">Payment Due</div>
                         {invoice && (
                             <div className="font-bold text-base">
                                 {dateFormat(invoice?.paymentDue)}
                             </div>
                         )}
                     </div>
-                    <div className="text-white-dark">
+                    <div className="text-gray-light dark:text-white-dark">
                         <div className="">{invoice?.clientAddress.street}</div>
                         <div className="">{invoice?.clientAddress.city}</div>
                         <div className="">
@@ -168,11 +168,11 @@ const Details: NextPage = (props) => {
                     <div className="">{invoice?.clientEmail}</div>
                 </div>
 
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto ">
                     <div className="" style={{ minWidth: "600px" }}>
-                        <div className="bg-blue-dark rounded-t-lg mt-10 p-7">
+                        <div className="bg-white-dark dark:bg-blue-dark rounded-t-lg mt-10 p-7 theme-transition">
                             <div className="w-full">
-                                <div className="flex w-full justify-between text-base">
+                                <div className="text-gray-light dark:text-white flex w-full justify-between text-base">
                                     <div className="w-2/4">Item Name</div>
                                     <div className="w-1/6 text-center">
                                         QTY.
@@ -194,10 +194,10 @@ const Details: NextPage = (props) => {
                                                 <div className="w-2/4">
                                                     {item.name}
                                                 </div>
-                                                <div className="w-1/6 text-center">
+                                                <div className="w-1/6 text-center text-gray-light dark:text-white">
                                                     {item.quantity}
                                                 </div>
-                                                <div className="w-1/6 text-right">
+                                                <div className="w-1/6 text-right text-gray-light dark:text-white">
                                                     {moneyStringFormat(item.price)}
                                                 </div>
                                                 <div className="w-1/6 text-right">
@@ -209,7 +209,7 @@ const Details: NextPage = (props) => {
                             </div>
                         </div>
 
-                        <div className="bg-black-dark rounded-b-lg p-7">
+                        <div className="bg-blue-dark dark:bg-black-dark rounded-b-lg p-7 text-white">
                             <div className="flex w-full justify-between items-center">
                                 <div className="">Amount Due</div>
                                 <div className="font-bold text-2xl">

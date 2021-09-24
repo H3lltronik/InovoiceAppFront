@@ -1,6 +1,5 @@
 import axios from "axios";
 import dayjs from "dayjs";
-import { useStore } from "../store";
 import { Invoice } from "../store/types";
 
 export const dateFormat = (date: string, format: string = "DD MMM YYYY") => {
@@ -21,6 +20,19 @@ export const generateUID = (): string => {
     secondPart = ("000" + secondPart.toString(36)).slice(-3);
     return firstPart + secondPart;
 };
+
+export const toggleTheme = () => {
+    const htmlClasses = document.querySelector("html")?.classList;
+    if (!htmlClasses) return
+
+    if (htmlClasses.contains("light")) {
+        htmlClasses.remove("light");
+        htmlClasses.add("dark");
+    } else if (htmlClasses.contains("dark")) {
+        htmlClasses.remove("dark");
+        htmlClasses.add("light");
+    }
+}
 
 export const getEmptyInvoice = (): Invoice => {
     return {
@@ -43,7 +55,14 @@ export const getEmptyInvoice = (): Invoice => {
             postCode: "",
             country: "",
         },
-        items: [],
+        items: [
+            {
+                name: "Example item",
+                price: 10,
+                quantity: 2,
+                total: 0,
+            }
+        ],
         total: 0,
     };
 };

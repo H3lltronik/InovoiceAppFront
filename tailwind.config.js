@@ -23,6 +23,8 @@ module.exports = {
         'gray-dark': '#7E88C3',
         'red-dark': '#EC5757',
         'red-light': '#FF9797',
+        'orange-dark': '#FF8F00',
+        'omg-dark': '#292C44',
       },
       fontFamily: {
         'primary': "Spartan, sans-serif",
@@ -49,7 +51,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      hidden: ['dark']
+    },
   },
   plugins: [],
 }

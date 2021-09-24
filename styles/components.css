@@ -3,11 +3,15 @@
 }
 
 .badge-draft {
-  @apply bg-opacity-10 bg-white-dark text-white-dark;
+  @apply bg-opacity-10 bg-gray-dark dark:bg-omg-dark text-black-light dark:text-white;
 }
 
 .badge-pending {
-  @apply bg-opacity-10 bg-yellow-600 text-yellow-600;
+  @apply bg-opacity-10 bg-orange-dark text-orange-dark;
+}
+
+.theme-transition {
+  @apply transition duration-300
 }
 
 .tippy-select-box {

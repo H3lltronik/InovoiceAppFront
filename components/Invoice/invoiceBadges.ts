@@ -8,13 +8,13 @@ export const invoiceBadges = [
     {
         text: "Draft",
         class: "badge-draft",
-        dotColor: "bg-white-dark"
+        dotColor: "dark:bg-white-dark bg-black-light"
 
     },
     {
         text: "Pending",
         class: "badge-pending",
-        dotColor: "bg-yellow-600"
+        dotColor: "bg-orange-dark"
 
     },
 ]

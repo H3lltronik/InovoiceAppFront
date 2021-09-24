@@ -29,11 +29,11 @@ const Home: NextPage = () => {
 
             <div className="flex">
                 <div className="">
-                    <h1 className="text-lg md:text-3xl font-bold text-white">
+                    <h1 className="text-lg md:text-3xl font-bold text-black dark:text-white">
                         Invoices
                     </h1>
                     {invoices.length > 0 && (
-                        <p className="font-normal text-xs text-white-dark mt-1">
+                        <p className="font-normal text-xs text-gray-light dark:text-white-dark mt-1">
                             <span className="hidden md:inline">There are </span>
                             <span className="">
                                 <span>{invoices.length}</span>
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
                         </p>
                     )}
                     {invoices.length == 0 && (
-                        <p className="font-normal text-xs text-white-dark mt-1">
+                        <p className="font-normal text-xs text-gray-dark dark:text-white-dark mt-1">
                             <span className="">No Invoices</span>
                         </p>
                     )}
@@ -87,11 +87,11 @@ const Home: NextPage = () => {
                         />
 
                         <div className="mt-10">
-                            <h2 className="text-white-dark text-xl font-bold text-center">
+                            <h2 className="text-black dark:text-white-dark text-xl font-bold text-center">
                                 There is nothing here
                             </h2>
 
-                            <p className="text-white-dark text-xs text-justify mt-5">
+                            <p className="text-gray-light dark:text-white-dark text-xs text-center mt-5">
                                 Create a new invoice by clicking the
                                 <b> New Invoice</b> button and get started
                             </p>

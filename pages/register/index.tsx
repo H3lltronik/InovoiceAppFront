@@ -48,22 +48,22 @@ const Register: NextPage = () => {
 
     return (
         <AppLayout className="h-screen flex items-start md:items-center justify-center">
-            <div className="bg-blue-dark rounded-lg p-5 flex flex-col items-center w-full md:w-auto">
-                <h1 className="text-white text-3xl mt-3">Invoice App</h1>
-                <h2 className="text-white text-xl mt-3">Register</h2>
+            <div className="bg-white dark:bg-blue-dark rounded-lg p-5 flex flex-col items-center w-full md:w-auto">
+                <h1 className="dark:text-white text-3xl mt-3">Invoice App</h1>
+                <h2 className="dark:text-white text-xl mt-3">Register</h2>
                 {error && <h2 className="text-xs text-red-500 mt-2">{error}</h2>}
 
                 <form className="w-full lg:w-96 text-center mt-10" >
                     <div className={``}>
-                        <div className={`text-xs text-white-dark mb-2`}>Username</div>
+                        <div className={`text-xs dark:text-white-dark mb-2`}>Username</div>
                         <Input rules={{required: true}} control={control} name="username" key="username"></Input>
                     </div>
                     <div className={`mt-10`}>
-                        <div className={`text-xs text-white-dark mb-2`}>Password</div>
+                        <div className={`text-xs dark:text-white-dark mb-2`}>Password</div>
                         <Input rules={{required: true}} control={control} name="password" key="password"></Input>
                     </div>
                     <div className={`mt-10`}>
-                        <div className={`text-xs text-white-dark mb-2`}>Confirm password</div>
+                        <div className={`text-xs dark:text-white-dark mb-2`}>Confirm password</div>
                         <Input rules={{required: true }} control={control} name="confirmPassword" key="confirmPassword"></Input>
                     </div>
 

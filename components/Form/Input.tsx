@@ -43,7 +43,8 @@ export const Input: FC<InputProps> = (props) => {
                     onChange(e.target.value);
                     controller.field.onChange(e);
                 }}
-                className={`${props.className} bg-transparent w-full text-white focus:outline-none h-full px-2 text-xs`}
+                className={`${props.className} bg-transparent w-full font-bold
+                text-black dark:text-white focus:outline-none h-full px-2 text-xs`}
                 type={`${props.type ?? "text"}`}
             />
 

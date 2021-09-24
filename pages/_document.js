@@ -10,7 +10,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html className="dark">
+      <Html className="light">
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com"/>
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={true}/>
@@ -24,7 +24,7 @@ class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#da532c"/>
           <meta name="theme-color" content="#9277ff"/>
         </Head>
-        <body className="dark:bg-black-light font-primary">
+        <body className="bg-white-light dark:bg-black-light font-primary theme-transition">
           <Main />
           <NextScript />
         </body>

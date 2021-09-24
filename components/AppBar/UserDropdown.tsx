@@ -41,11 +41,11 @@ export const UserDropdown: FC<UserDropdownProps> = (props) => {
                             className="block w-full">
                             {({ active }) => (
                                 <div
-                                    className={`border-blue-darker pointer-events-none text-white-dark
+                                    className={`text-black dark:text-white border-gray-light dark:border-blue-darker font-bold
                                             px-3 text-sm py-3 w-full
                                             ${
                                                 index + 1 < options.length
-                                                    ? "border-b-2"
+                                                    ? "border-b"
                                                     : null
                                             } 
                                             ${active && "bg-purple-dark"}
@@ -86,7 +86,7 @@ export const UserDropdown: FC<UserDropdownProps> = (props) => {
                     </div>
                 </Menu.Button>
                 <Menu.Items
-                    className={`bg-blue-dark rounded-xl ring-1 
+                    className={`bg-white dark:bg-blue-dark rounded-xl ring-1 
                     overflow-hidden top-full mt-2 right-3 lg:right-0 lg:left-full lg:top-0 lg:ml-2 lg:mt-0 absolute w-48
                     ${!user && "hidden"}`}>
                     {getItems()}

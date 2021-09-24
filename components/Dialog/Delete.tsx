@@ -36,18 +36,19 @@ export const Delete : FC<DeleteInvoiceProps> = (props) => {
   return (
     <Modal activator={getActivator()} ref={modalRef}>
       <section
-        className={`text-white text-left absolute bg-blue-darker p-8 rounded-lg w-msg-modal max-w-full
+        className={`text-black dark:text-white text-left absolute bg-white dark:bg-blue-darker p-8 rounded-lg w-msg-modal max-w-full
       left-2/4 top-2/4 transform -translate-x-2/4 -translate-y-2/4`}>
         <h2 className="font-bold text-2xl">Confirm Deletion</h2>
 
-        <p className={`text-xs text-white-dark mt-4`}>
+        <p className={`text-xs text-black dark:text-white-dark mt-4`}>
           Are you sure you want to delete invoice #{props.id}? This action cannot be
           undone.
         </p>
 
         <div className="flex justify-end items-center gap-3 mt-8">
           <Button
-            className="bg-blue-dark text-white hover:bg-purple-light active:bg-purple-dark"
+            className="bg-white-dark dark:bg-blue-dark text-gray-light dark:text-white hover:bg-purple-light 
+              active:bg-purple-dark"
             onClick={closeModal}>
             <span>Cancel</span>
           </Button>

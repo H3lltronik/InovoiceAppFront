@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useRef } from "react";
+import { toggleTheme } from "../../lib/lib";
 import { ProfilePicture, ProfilePictureElement } from "../Form/ProfilePicture";
 import { UserDropdown } from "./UserDropdown";
 
@@ -12,7 +13,7 @@ const AppBar = () => {
         <aside
             className="relative lg:fixed
                 lg:w-28 h-20 lg:h-screen z-20
-                lg:rounded-r-3xl dark:bg-blue-darker">
+                lg:rounded-r-3xl bg-blue-darker">
             <div className="flex flex-row lg:flex-col h-full">
                 <button
                     className="relative bg-purple-dark
@@ -32,12 +33,18 @@ const AppBar = () => {
                 <div className="flex-grow"></div>
 
                 <section className="flex flex-row lg:flex-col lg:w-full">
-                    <button className="flex h-full lg:h-28 h:lg-auto lg:w-full px-10 lg:px-0">
+                    <button className="flex h-full lg:h-28 h:lg-auto lg:w-full px-10 lg:px-0"
+                        onClick={toggleTheme}>
                         <div className="inline-block m-auto">
                             <img
-                                className="w-5 h-5"
+                                className="w-5 h-5 hidden dark:block"
                                 src="/icon-sun.svg"
                                 alt="Sun icon"
+                            />
+                            <img
+                                className="w-5 h-5 block dark:hidden"
+                                src="/icon-moon.svg"
+                                alt="Moon icon"
                             />
                         </div>
                     </button>

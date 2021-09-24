@@ -34,17 +34,17 @@ const Login: NextPage = () => {
 
     return (
         <AppLayout className="h-screen flex items-start md:items-center justify-center">
-            <div className="bg-blue-dark rounded-lg p-5 flex flex-col items-center">
-                <h1 className="text-white text-3xl mt-3">Invoice App</h1>
-                <h1 className="text-white text-xl mt-3">Login</h1>
+            <div className="bg-white dark:bg-blue-dark rounded-lg p-5 flex flex-col items-center">
+                <h1 className="dark:text-white text-3xl mt-3">Invoice App</h1>
+                <h1 className="dark:text-white text-xl mt-3">Login</h1>
 
                 <form className="w-full md:w-96 text-center mt-10" >
                     <div className={``}>
-                        <div className={`text-xs text-white-dark mb-2`}>Username</div>
+                        <div className={`text-xs dark:text-white-dark mb-2`}>Username</div>
                         <Input rules={{required: true}} control={control} name="username" value="john" key="username"></Input>
                     </div>
                     <div className={`mt-10`}>
-                        <div className={`text-xs text-white-dark mb-2`}>Password</div>
+                        <div className={`text-xs dark:text-white-dark mb-2`}>Password</div>
                         <Input rules={{required: true}} control={control} name="password" value="changeme123" type="password" key="password"></Input>
                     </div>
 

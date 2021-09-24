@@ -100,8 +100,8 @@ export const ProfilePictureComponent = (props: any, ref: any) => {
     return (
         <Modal activator={getActivator()} ref={modalRef}>
                 <section
-                    className={`text-white text-left absolute bg-blue-darker p-8 rounded-lg w-4/5 lg:w-msg-modal max-w-full
-                        overflow-hidden
+                    className={`dark:text-white text-left absolute bg-white dark:bg-blue-darker p-8 rounded-lg w-4/5 lg:w-msg-modal 
+                        max-w-full overflow-hidden theme-transition
                         mt-5 lg:mt-0 left-2/4 top-2/4 transform -translate-x-2/4 -translate-y-2/4`}>
                     {/* Loading backdrop */}
                     {
@@ -111,7 +111,7 @@ export const ProfilePictureComponent = (props: any, ref: any) => {
                     }
 
                     <h2 className="font-bold text-2xl">Change picture</h2>
-                    <small className="text-xs text-white-dark">(Up to 1MB)</small>
+                    <small className="text-xs text-black dark:text-white-dark">(Up to 1MB)</small>
 
                     <input onChange={getImage} type="file" accept="image/png, image/jpeg" className="my-5"/>
 
