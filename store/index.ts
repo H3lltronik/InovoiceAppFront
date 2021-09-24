@@ -1,4 +1,5 @@
 import createStore from "zustand";
+import { serverUrl } from "../api";
 import { Invoice, User } from "./types";
 
 type StoreState = {
@@ -50,6 +51,10 @@ export const useStore = createStore<StoreType>((set, get) => ({
         }),
     setUser: (user: User) =>
         set((state: StoreState) => {
+            let profilePic = user.profilePicture;
+            profilePic = profilePic? `${serverUrl}/${profilePic}` : `/no-picture.jpg`;
+            
+            user.profilePicture = profilePic;
             return { user };
         }),
     addInvoice: (invoice: Invoice) =>

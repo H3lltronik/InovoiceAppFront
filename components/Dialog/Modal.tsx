@@ -23,6 +23,7 @@ const ModalComponent = (props: any, ref: any) => {
 
   useImperativeHandle(ref, () => ({
     closeModal,
+    openModal,
   }));
 
   return (
@@ -77,5 +78,6 @@ const ModalComponent = (props: any, ref: any) => {
 
 export type ModalElement = {
   closeModal: () => any,
+  openModal: () => any,
 }
 export const Modal = forwardRef<ModalElement, ModalProps>(ModalComponent);

@@ -1,3 +1,4 @@
+import axios from "axios";
 import dayjs from "dayjs";
 import { useStore } from "../store";
 import { Invoice } from "../store/types";
@@ -45,4 +46,22 @@ export const getEmptyInvoice = (): Invoice => {
         items: [],
         total: 0,
     };
+};
+
+export const fetchImageToBlobText = async (url: string): Promise<string> => {
+    return new Promise(async (resolve, reject) => {
+        const result = await axios
+            .get(url, { responseType: "blob" })
+            .then(function (response) {
+                let reader = new window.FileReader();
+                reader.readAsDataURL(response.data);
+                reader.onload = function () {
+                    let imageDataUrl = reader.result;
+                    if (typeof imageDataUrl == 'string')
+                        resolve(imageDataUrl);
+                    
+                    reject();
+                };
+            });
+    });
 };

@@ -162,7 +162,21 @@ export async function createInvoice(invoice: Invoice) {
     });
 }
 
-function getAccessTokenHeader() {
+export async function changeProfilePicture(image: string) {
+    return await resolve<User>(async () => {
+        const config = getAccessTokenHeader();
+        config.headers["Content-Type"] = "multipart/form-data";
+
+        const payload = new FormData();
+        payload.append('file', image);
+
+        return await axios
+            .post(`${serverUrl}/user/profile-picture`, payload, config)
+            .then((res) => res.data);
+    });
+}
+
+function getAccessTokenHeader(): AxiosRequestConfig {
     const access_token = localStorage.getItem("access_token");
     const config: AxiosRequestConfig = {
         headers: {
