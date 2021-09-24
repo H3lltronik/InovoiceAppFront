@@ -105,7 +105,7 @@ export const NewInvoice: FC<NewInvoiceProps> = (props) => {
                 <span className="">{invoice?.id}</span>
             </span>
           </h2>
-          :<h2 className="dark:text-white font-bold text-2xl">New Invoice</h2>
+          :<h2 className="text-black dark:text-white font-bold text-2xl">New Invoice</h2>
         }
 
         <div className="mt-10">

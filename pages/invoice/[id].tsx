@@ -70,7 +70,7 @@ const Details: NextPage = (props) => {
 
     const getFooter = () => {
         return (
-            <footer className="flex md:hidden w-full bg-blue-darker justify-center mt-10 py-5">
+            <footer className="flex md:hidden w-full bg-white dark:bg-blue-darker justify-center mt-10 py-5">
                 <div className="">{getOptions()}</div>
             </footer>
         );

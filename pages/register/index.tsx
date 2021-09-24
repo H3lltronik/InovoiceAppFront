@@ -9,6 +9,7 @@ import { PageUnguard } from "../../components/Guard/PageUnguard";
 import { createUser, login } from "../../api";
 import { useStore } from "../../store";
 import Router from "next/router";
+import Head from "next/head";
 
 const Register: NextPage = () => {
     const setAppLoading = useStore(state => state.setAppLoading)
@@ -48,6 +49,10 @@ const Register: NextPage = () => {
 
     return (
         <AppLayout className="h-screen flex items-start md:items-center justify-center">
+            <Head>
+                <title>H3lltronik | Invoice App</title>
+            </Head>
+
             <div className="bg-white dark:bg-blue-dark rounded-lg p-5 flex flex-col items-center w-full md:w-auto">
                 <h1 className="dark:text-white text-3xl mt-3">Invoice App</h1>
                 <h2 className="dark:text-white text-xl mt-3">Register</h2>

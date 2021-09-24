@@ -9,6 +9,7 @@ import { login } from "../../api";
 import Router from "next/router";
 import { PageUnguard } from "../../components/Guard/PageUnguard";
 import { useStore } from "../../store";
+import Head from "next/head";
 
 const Login: NextPage = () => {
     const setAppLoading = useStore(state => state.setAppLoading)
@@ -34,6 +35,10 @@ const Login: NextPage = () => {
 
     return (
         <AppLayout className="h-screen flex items-start md:items-center justify-center">
+            <Head>
+                <title>H3lltronik | Invoice App</title>
+            </Head>
+            
             <div className="bg-white dark:bg-blue-dark rounded-lg p-5 flex flex-col items-center">
                 <h1 className="dark:text-white text-3xl mt-3">Invoice App</h1>
                 <h1 className="dark:text-white text-xl mt-3">Login</h1>
